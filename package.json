@@ -54,6 +54,7 @@
     "bemclassnames": "^1.0.4",
     "classnames": "^2.2.5",
     "fcronjs": "^2.0.1",
+    "fiojs": "^1.0.1",
     "httpapijs": "^1.0.1",
     "print-str": "^1.0.3",
     "react": "^15.5.4",
