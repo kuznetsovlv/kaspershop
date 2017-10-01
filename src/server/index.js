@@ -1,8 +1,9 @@
 import ServerAPI, { getContentType, getStatusText } from 'httpapijs';
+import onStart from './onStart';
 
 const server = new ServerAPI(8084, __dirname);
 
-server.on('start', () => console.log('HELLO!'));
+server.on('start', onStart);
 
 server.on('get', (request, response) => {
   response.statusCode = 200;

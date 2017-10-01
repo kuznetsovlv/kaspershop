@@ -2,10 +2,12 @@
   "name": "kaspershop",
   "version": "1.0.0",
   "description": "Test task from Kaspersky Lab",
-  "main": "web/index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "server": "babel-node ./server/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "node ./dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-server": "babel-node ./scripts/buildServer.js",
+    "build-server-product": "npm run build-server product"
   },
   "author": "Kuznetsov Leonid (kuznetsovlv1981@gmail.com)",
   "license": "MIT",
@@ -54,7 +56,7 @@
     "bemclassnames": "^1.0.4",
     "classnames": "^2.2.5",
     "fcronjs": "^2.0.1",
-    "fiojs": "^1.0.1",
+    "fiojs": "^1.1.1",
     "httpapijs": "^1.0.1",
     "print-str": "^1.0.3",
     "react": "^15.5.4",
