@@ -1,0 +1,6 @@
+getCathegories();
+getGoods(cathegory);
+getGood(id);
+getDefaults();
+byGoods(...ids);
+saveGood(id, data);
