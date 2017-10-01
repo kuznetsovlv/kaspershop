@@ -61,6 +61,7 @@
     "fiojs": "^1.1.1",
     "httpapijs": "^1.0.1",
     "print-str": "^1.0.3",
+    "promise": "^8.0.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
     "react-redux": "^5.0.4",

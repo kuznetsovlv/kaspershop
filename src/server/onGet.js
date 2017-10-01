@@ -1,5 +1,4 @@
 import { parse } from 'url';
-import { readdir } from 'fs';
 import { join } from 'path';
 import { getFileInfo } from 'fiojs';
 import { sendError, sendFile } from './utils';
@@ -10,7 +9,7 @@ export default (request, response) => {
   const { root = __dirname } = server;
 
   const data = parse(url, true);
-  const query = data.query || {};
+  // const query = data.query || {};
   const { pathname } = data;
 
   getFileInfo(join(root, pathname))
@@ -26,7 +25,7 @@ export default (request, response) => {
           case 'directory':
             return getFileInfo(join(path, 'index.html'))
               .then((data) => {
-                const { exists, fileType, path } = data;
+                const { exists, fileType } = data;
                 if (!exists || fileType !== 'regular file') {
                   sendError(response, 404);
                 } else {
