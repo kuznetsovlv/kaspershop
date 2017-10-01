@@ -72,11 +72,9 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var server = new _httpapijs2.default(8084, __dirname);
 
-	// server.on('start', onStart);
+	server.on('start', _onStart2.default);
 
-	server.on('get', function (request, response) {
-	  (0, _onGet2.default)(request, response, server);
-	});
+	server.on('get', _onGet2.default);
 
 	server.up();
 
@@ -159,12 +157,14 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _utils = __webpack_require__(10);
 
-	exports.default = function (request, response, server) {
+	exports.default = function (request, response) {
+	  var server = request.server || {};
+	  var url = request.url;
 	  var _server$root = server.root,
 	      root = _server$root === undefined ? __dirname : _server$root;
 
 
-	  var data = (0, _url.parse)(request.url, true);
+	  var data = (0, _url.parse)(url, true);
 	  var query = data.query || {};
 	  var pathname = data.pathname;
 
@@ -310,7 +310,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	    (0, _sendError2.default)(response, 500, 'Incorrect server code!');
 	  } else {
 	    (0, _fiojs.readFile)(path).then(function (data) {
-	      console.log(data);
 	      response.statusCode = 200;
 	      response.statusMessage = 'OK';
 	      response.setHeader('Content-Type', (0, _httpapijs.getContentType)(ext));

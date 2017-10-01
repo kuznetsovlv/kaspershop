@@ -4,10 +4,12 @@ import { join } from 'path';
 import { getFileInfo } from 'fiojs';
 import { sendError, sendFile } from './utils';
 
-export default (request, response, server) => {
+export default (request, response) => {
+  const server = request.server || {};
+  const { url } = request;
   const { root = __dirname } = server;
 
-  const data = parse(request.url, true);
+  const data = parse(url, true);
   const query = data.query || {};
   const { pathname } = data;
 

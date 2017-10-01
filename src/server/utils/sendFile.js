@@ -9,7 +9,6 @@ export default (response, fileData) => {
     sendError(response, 500, 'Incorrect server code!');
   } else {
     readFile(path).then((data) => {
-      console.log(data);
       response.statusCode = 200;
       response.statusMessage = 'OK';
       response.setHeader('Content-Type', getContentType(ext));
