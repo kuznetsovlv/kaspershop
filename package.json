@@ -5,9 +5,10 @@
   "main": "dist/index.js",
   "scripts": {
     "server": "node ./dist/server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build-server": "babel-node ./scripts/buildServer.js",
-    "build-server-product": "npm run build-server product"
+    "build-server-product": "npm run build-server product",
+    "start": "npm-run-all --parallel build-server-product server",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kuznetsov Leonid (kuznetsovlv1981@gmail.com)",
   "license": "MIT",
@@ -41,7 +42,7 @@
     "karma-remap-istanbul": "^0.6.0",
     "karma-webpack": "^2.0.3",
     "node-sass": "^4.5.2",
-    "npm-run-all": "^4.0.2",
+    "npm-run-all": "^4.1.1",
     "sass-loader": "^6.0.3",
     "sourcemap-istanbul-instrumenter-loader": "^0.2.0",
     "unit-kuznetsov": "^1.1.1",
