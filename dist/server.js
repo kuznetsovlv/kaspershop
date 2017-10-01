@@ -181,10 +181,11 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	      switch (fileType) {
 	        case 'regular file':
-	          (0, _utils.sendFile)(response, data);
-	          break;
+	          // sendFile(response, data);
+	          return data;
+	        // break;
 	        case 'directory':
-	          (0, _fiojs.getFileInfo)((0, _path.join)(path, 'index.html')).then(function (data) {
+	          return (0, _fiojs.getFileInfo)((0, _path.join)(path, 'index.html')).then(function (data) {
 	            var exists = data.exists,
 	                fileType = data.fileType,
 	                path = data.path;
@@ -192,16 +193,16 @@ return /******/ (function(modules) { // webpackBootstrap
 	            if (!exists || fileType !== 'regular file') {
 	              (0, _utils.sendError)(response, 404);
 	            } else {
-	              (0, _utils.sendFile)(response, data);
+	              return data;
 	            }
-	          }, function (error) {
-	            return (0, _utils.sendError)(response, 500, error.message || error);
 	          });
-	          break;
+	        // break;
 	        default:
 	          (0, _utils.sendError)(response, 403);
 	      }
 	    }
+	  }).then(function (data) {
+	    return (0, _utils.sendFile)(response, data);
 	  }, function (error) {
 	    return (0, _utils.sendError)(response, 500, error.message || error);
 	  });

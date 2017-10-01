@@ -22,21 +22,26 @@ export default (request, response) => {
       } else {
         switch (fileType) {
           case 'regular file':
-            sendFile(response, data);
-            break;
+            // sendFile(response, data);
+            return data;
+            // break;
           case 'directory':
-            getFileInfo(join(path, 'index.html'))
+            return getFileInfo(join(path, 'index.html'))
               .then((data) => {
                 const { exists, fileType, path } = data;
                 if (!exists || fileType !== 'regular file') {
                   sendError(response, 404);
                 } else {
-                  sendFile(response, data);
+                  return data;
                 }
-              }, error => sendError(response, 500, error.message || error));
-            break;
+              });
+            // break;
           default: sendError(response, 403);
         }
       }
-    }, error => sendError(response, 500, error.message || error));
+    })
+  .then(
+    data => sendFile(response, data),
+    error => sendError(response, 500, error.message || error)
+  );
 };
