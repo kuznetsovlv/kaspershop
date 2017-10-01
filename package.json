@@ -7,7 +7,8 @@
     "server": "node ./dist/server.js",
     "build-server": "babel-node ./scripts/buildServer.js",
     "build-server-product": "npm run build-server product",
-    "start": "npm-run-all --parallel build-server-product server",
+    "start": "npm-run-all --parallel build-server",
+    "web": "npm-run-all --parallel server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kuznetsov Leonid (kuznetsovlv1981@gmail.com)",
