@@ -22,9 +22,7 @@ export default (request, response) => {
       } else {
         switch (fileType) {
           case 'regular file':
-            // sendFile(response, data);
             return data;
-            // break;
           case 'directory':
             return getFileInfo(join(path, 'index.html'))
               .then((data) => {
@@ -35,7 +33,6 @@ export default (request, response) => {
                   return data;
                 }
               });
-            // break;
           default: sendError(response, 403);
         }
       }

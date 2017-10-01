@@ -181,9 +181,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	    } else {
 	      switch (fileType) {
 	        case 'regular file':
-	          // sendFile(response, data);
 	          return data;
-	        // break;
 	        case 'directory':
 	          return (0, _fiojs.getFileInfo)((0, _path.join)(path, 'index.html')).then(function (data) {
 	            var exists = data.exists,
@@ -196,7 +194,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	              return data;
 	            }
 	          });
-	        // break;
 	        default:
 	          (0, _utils.sendError)(response, 403);
 	      }
