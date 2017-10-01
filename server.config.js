@@ -15,7 +15,8 @@ const plugins = [
     'process.env': {
       DEV: JSON.stringify(DEV),
       PRODUCT: JSON.stringify(PRODUCT)
-    }
+    },
+    $dirname: '__dirname'
   })
 ];
 
@@ -23,7 +24,7 @@ const productPlugins = [
   new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false,
-      drop_console: true,
+      drop_console: false,
       unsafe: true
     }
   })
@@ -31,6 +32,10 @@ const productPlugins = [
 
 const config =  {
   context: resolve(__dirname, 'src', 'server'),
+  node: {
+    __filename: false,
+    __dirname: false
+  },
   entry: './index',
   noInfo: true,
   target: 'node',
