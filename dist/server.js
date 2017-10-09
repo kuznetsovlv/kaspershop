@@ -1477,6 +1477,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
+	var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	var _data = __webpack_require__(27);
@@ -1489,36 +1493,106 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var getGoodsCommand = 'getGoods';
 	var getGoodCommand = 'getGood';
+	var byGoodsCommand = 'byGoods';
+	var saveGoodCommand = 'saveGood';
 
 	exports.default = function (path, command) {
 	  var inputData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 	  return (0, _data2.default)(path, _data.getCommand, {}).then(function (data) {
-	    var goods = data.goods || {};
+	    var operatingInputData = _extends({}, inputData);
+	    var operatingData = _extends({}, data);
+	    var goods = operatingData.goods || {};
 
 	    switch (command) {
 	      case getGoodsCommand:
-	        var requiredFields = data.requiredFields || [];
-	        var cathegory = inputData.cathegory;
+	        {
+	          var requiredFields = operatingData.requiredFields || [];
+	          var cathegory = operatingInputData.cathegory;
 
-	        var ids = Object.keys(goods).filter(function (id) {
-	          return goods.id && goods.id.cathegories & cathegory;
-	        });
-	        var hash = ids.reduce(function (h, id) {
-	          var good = goods[id];
-	          h[id] = requiredFields.reduce(function (g, field) {
-	            var _extends2;
+	          var ids = Object.keys(goods).filter(function (id) {
+	            return goods.id && goods.id.cathegories & cathegory;
+	          });
+	          var hash = ids.reduce(function (h, id) {
+	            var good = goods[id];
+	            h[id] = requiredFields.reduce(function (g, field) {
+	              var _extends2;
 
-	            return _extends({}, g, (_extends2 = {}, _defineProperty(_extends2, field, field), _defineProperty(_extends2, 'complite', false), _extends2));
+	              return _extends({}, g, (_extends2 = {}, _defineProperty(_extends2, field, good[field]), _defineProperty(_extends2, 'complite', false), _extends2));
+	            }, {});
+	            return h;
 	          }, {});
-	          return h;
-	        }, {});
-	        return hash;
+	          return hash;
+	        }
 	      case getGoodCommand:
-	        var id = inputData.id;
+	        {
+	          var id = operatingInputData.id;
 
-	        var good = goods[id];
-	        return _extends({}, good, { complite: true });
+	          var good = goods[id];
+	          return _extends({}, good, { complite: true });
+	        }
+	      case byGoodsCommand:
+	        {
+	          var goodList = operatingInputData.goodList;
 
+
+	          if (!Array.isArray(goodList)) {
+	            throw 'Incorrect good list';
+	          }
+
+	          goodList.forEach(function (_ref) {
+	            var id = _ref.id,
+	                _ref$amount = _ref.amount,
+	                amount = _ref$amount === undefined ? 0 : _ref$amount;
+
+	            var good = goods[id];
+
+	            if ((typeof good === 'undefined' ? 'undefined' : _typeof(good)) !== 'object') {
+	              throw 'Incorrect data format for good #' + id;
+	            }
+
+	            var _good$amount = good.amount,
+	                currentAmount = _good$amount === undefined ? 0 : _good$amount;
+
+	            var newAmount = currentAmount - amount;
+
+	            if (isNaN(newAmount) || newAmount < 0) {
+	              throw 'Incorrect operation.';
+	            }
+
+	            goods[id] = _extends({}, good, { id: id, amount: newAmount });
+	          });
+
+	          return data(path, _data.setCommand, _extends({}, operatingData, { goods: goods }));
+	        }
+	      case saveGoodCommand:
+	        {
+	          var _good = operatingInputData.good;
+
+
+	          if ((typeof _good === 'undefined' ? 'undefined' : _typeof(_good)) !== 'object') {
+	            throw 'Incorrect data.';
+	          }
+
+	          var _good2 = _good,
+	              _id = _good2.id;
+
+
+	          if (!_id) {
+	            var _ids = Object.keys(goods).map(function (id) {
+	              return goods[id].id;
+	            }).sort(function (a, b) {
+	              return a - b;
+	            });
+
+	            var _ids2 = _slicedToArray(_ids, 1),
+	                length = _ids2[0];
+
+	            _id = length > 0 ? _ids[length - 1] + 1 : 1;
+	            _good = _extends({}, _good, { id: _id });
+	          }
+
+	          return data(path, _data.setCommand, _extends({}, operatingData, { goods: _extends({}, goods, _defineProperty({}, _id, _good)) }));
+	        }
 	      default:
 	        throw 'Unknown command "' + command + '"';
 	    }

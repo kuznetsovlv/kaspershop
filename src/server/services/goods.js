@@ -18,7 +18,7 @@ export default (path, command, inputData = {}) => data(path, getCommand, {}).the
       const hash = ids.reduce((h, id) => {
         const good = goods[id];
         h[id] = requiredFields
-          .reduce((g, field) => ({ ...g, [field]: field, complite: false }), {});
+          .reduce((g, field) => ({ ...g, [field]: good[field], complite: false }), {});
         return h;
       }, {});
       return hash;
@@ -31,7 +31,7 @@ export default (path, command, inputData = {}) => data(path, getCommand, {}).the
     case byGoodsCommand: {
       const { goodList } = operatingInputData;
 
-      if(!Array.isArray(goodList)) {
+      if (!Array.isArray(goodList)) {
         throw 'Incorrect good list';
       }
 
@@ -64,8 +64,10 @@ export default (path, command, inputData = {}) => data(path, getCommand, {}).the
       let { id } = good;
 
       if (!id) {
-        const ids = Object.keys(goods).map(id => goods[id].id).sort((a, b) => a - b);
-        const [ length ] = ids;
+        const ids = Object
+          .keys(goods).map(id => goods[id].id)
+          .sort((a, b) => a - b);
+        const [length] = ids;
 
         id = length > 0 ? ids[length - 1] + 1 : 1;
         good = { ...good, id };
