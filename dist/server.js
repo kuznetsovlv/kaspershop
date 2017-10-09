@@ -68,7 +68,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _onGet2 = _interopRequireDefault(_onGet);
 
-	var _onPost = __webpack_require__(13);
+	var _onPost = __webpack_require__(25);
 
 	var _onPost2 = _interopRequireDefault(_onPost);
 
@@ -255,7 +255,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _sendFile2 = _interopRequireDefault(_sendFile);
 
-	var _sendData = __webpack_require__(25);
+	var _sendData = __webpack_require__(13);
 
 	var _sendData2 = _interopRequireDefault(_sendData);
 
@@ -342,17 +342,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _utils = __webpack_require__(10);
+	var _httpapijs = __webpack_require__(1);
 
-	exports.default = function (request, response) {
-	  (0, _utils.getPostData)(request).then(function (data) {
-	    var path = data.path,
-	        service = data.service,
-	        command = data.command;
+	exports.default = function (response) {
+	  var success = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
+	  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
 
-	    var params = data.params || params;
-	  }, function (error) {
-	    return (0, _utils.sendError)(response, 500, error.message || error);
+	  var strData = JSON.stringify(success ? { success: success, output: data } : { success: success, error: data });
+
+	  response.statusCode = 200;
+	  response.statusMessage = 'OK';
+	  response.setHeader('Content-Type', (0, _httpapijs.getContentType)('json'));
+	  response.setHeader('Content-Length', strData.length);
+	  response.write(strData, function () {
+	    return response.end();
 	  });
 	};
 
@@ -1192,22 +1195,131 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _httpapijs = __webpack_require__(1);
+	var _utils = __webpack_require__(10);
 
-	exports.default = function (response) {
-	  var success = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : true;
-	  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+	var _services = __webpack_require__(26);
 
-	  var strData = JSON.stringify(success ? { success: success, output: data } : { success: success, error: data });
+	exports.default = function (request, response) {
+	  (0, _utils.getPostData)(request).then(function (data) {
+	    var path = data.path,
+	        service = data.service,
+	        command = data.command;
 
-	  response.statusCode = 200;
-	  response.statusMessage = 'OK';
-	  response.setHeader('Content-Type', (0, _httpapijs.getContentType)('json'));
-	  response.setHeader('Content-Length', strData.length);
-	  response.write(strData, function () {
-	    return response.end();
+	    var params = data.params || params;
+	  }, function (error) {
+	    return (0, _utils.sendError)(response, 500, error.message || error);
 	  });
 	};
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.data = undefined;
+
+	var _data = __webpack_require__(27);
+
+	var _data2 = _interopRequireDefault(_data);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.data = _data2.default;
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.setCommand = exports.getCommand = undefined;
+
+	var _fiojs = __webpack_require__(7);
+
+	var _promise = __webpack_require__(15);
+
+	var _promise2 = _interopRequireDefault(_promise);
+
+	var _constants = __webpack_require__(28);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var getCommand = exports.getCommand = 'read';
+	var setCommand = exports.setCommand = 'write';
+
+	exports.default = function (path, command) {
+	  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+	  return new _promise2.default(function (resolve, reject) {
+	    switch (command) {
+	      case getCommand:
+	        (0, _fiojs.getFileInfo)(path).then(function (_ref) {
+	          var exists = _ref.exists,
+	              fileType = _ref.fileType,
+	              absolute = _ref.absolute;
+
+	          if (!exists) {
+	            return '{}';
+	          } else if (fileType !== 'regular file') {
+	            throw 'Request on incorrect path.';
+	          }
+
+	          return (0, _fiojs.readFile)(absolute, _constants.ENCODING);
+	        }).then(function (str) {
+	          return resolve(JSON.parse(str));
+	        }, function (error) {
+	          return reject(error);
+	        });
+	        break;
+	      case setCommand:
+	        try {
+	          data = JSON.stringify(data);
+	          (0, _fiojs.writeFile)(path, data, _constants.ENCODING).then(function (data) {
+	            return resolve('OK');
+	          }, function (error) {
+	            return reject('Can not save data ' + JSON.stringify(data) + '.');
+	          });
+	        } catch (error) {
+	          reject(error);
+	        }
+	        break;
+	      default:
+	        reject('Unknown command "' + command + '" for data service.');
+	    }
+	  });
+	};
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ENCODING = undefined;
+
+	var _encoding = __webpack_require__(29);
+
+	exports.ENCODING = _encoding.ENCODING;
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var ENCODING = exports.ENCODING = 'utf8';
 
 /***/ })
 /******/ ])

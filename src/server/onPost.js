@@ -1,4 +1,7 @@
 import { getPostData, sendError, sendData } from './utils';
+import {
+  data
+} from './services';
 
 export default (request, response) => {
   getPostData(request)

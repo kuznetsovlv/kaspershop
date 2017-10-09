@@ -55,7 +55,7 @@ module.exports = {
     "no-dupe-class-members": "error",
     "no-duplicate-imports": ["error", { "includeExports": true }],
     "import/no-mutable-exports": "error",
-    "import/prefer-default-export": "error",
+    "import/prefer-default-export": "warn",
     "import/first": "error",
     "import/no-webpack-loader-syntax": "error",
     "no-iterator": "error",
