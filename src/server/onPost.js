@@ -1,7 +1,8 @@
 import { getPostData, sendError, sendData } from './utils';
 import {
   data,
-  cathegories
+  cathegories,
+  goods
 } from './services';
 
 export default (request, response) => {
@@ -15,6 +16,8 @@ export default (request, response) => {
           return data(path, command, params);
         case 'cathegories':
           return cathegories(path, command, params);
+        case 'goods':
+          return goods(path, command, params);
         default:
           throw 'Unknown service';
       }

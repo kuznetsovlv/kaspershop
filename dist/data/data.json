@@ -5,7 +5,9 @@
     "id",
     "name",
     "cathegories",
-    "price"
+    "price",
+    "amount"
   ],
-  "fields": []
+  "fields": [],
+  "defaults": {}
 }

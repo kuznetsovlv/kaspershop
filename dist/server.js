@@ -1216,6 +1216,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return data(path, command, params);
 	      case 'cathegories':
 	        return (0, _services.cathegories)(path, command, params);
+	      case 'goods':
+	        return (0, _services.goods)(path, command, params);
 	      default:
 	        throw 'Unknown service';
 	    }
@@ -1233,7 +1235,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.cathegories = exports.data = undefined;
+	exports.goods = exports.cathegories = exports.data = undefined;
 
 	var _data = __webpack_require__(27);
 
@@ -1243,10 +1245,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _cathegories2 = _interopRequireDefault(_cathegories);
 
+	var _goods = __webpack_require__(33);
+
+	var _goods2 = _interopRequireDefault(_goods);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.data = _data2.default;
 	exports.cathegories = _cathegories2.default;
+	exports.goods = _goods2.default;
 
 /***/ }),
 /* 27 */
@@ -1447,13 +1454,71 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = function (path, command) {
 	  var inputData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-	  return (0, _data2.default)(path, _data.getCommand, inputData).then(function (data) {
+	  return (0, _data2.default)(path, _data.getCommand, {}).then(function (data) {
 	    switch (command) {
 	      case getCathegoriesCommand:
 	        var cathegories = data.cathegories,
 	            cathegoryList = data.cathegoryList;
 
 	        return { cathegories: cathegories, cathegoryList: cathegoryList };
+	      default:
+	        throw 'Unknown command "' + command + '"';
+	    }
+	  });
+	};
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _data = __webpack_require__(27);
+
+	var _data2 = _interopRequireDefault(_data);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var getGoodsCommand = 'getGoods';
+	var getGoodCommand = 'getGood';
+
+	exports.default = function (path, command) {
+	  var inputData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+	  return (0, _data2.default)(path, _data.getCommand, {}).then(function (data) {
+	    var goods = data.goods || {};
+
+	    switch (command) {
+	      case getGoodsCommand:
+	        var requiredFields = data.requiredFields || [];
+	        var cathegory = inputData.cathegory;
+
+	        var ids = Object.keys(goods).filter(function (id) {
+	          return goods.id && goods.id.cathegories & cathegory;
+	        });
+	        var hash = ids.reduce(function (h, id) {
+	          var good = goods[id];
+	          h[id] = requiredFields.reduce(function (g, field) {
+	            var _extends2;
+
+	            return _extends({}, g, (_extends2 = {}, _defineProperty(_extends2, field, field), _defineProperty(_extends2, 'complite', false), _extends2));
+	          }, {});
+	          return h;
+	        }, {});
+	        return hash;
+	      case getGoodCommand:
+	        var id = inputData.id;
+
+	        var good = goods[id];
+	        return _extends({}, good, { complite: true });
+
 	      default:
 	        throw 'Unknown command "' + command + '"';
 	    }

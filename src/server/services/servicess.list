@@ -1,6 +1,6 @@
-getCathegories();
-getGoods(cathegory);
-getGood(id);
+<!-- getCathegories(); -->
+<!-- getGoods(cathegory); -->
+<!-- getGood(id); -->
 getDefaults();
-byGoods(...ids);
-saveGood(id, data);
+<!-- byGoods(...goodList); -->
+<!-- saveGood(good); -->
