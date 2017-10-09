@@ -1,6 +1,7 @@
 import { getFileInfo, readFile, writeFile } from 'fiojs';
 import Promise from 'promise';
 import { ENCODING } from '../constants';
+import { expandCathegories } from '../utils';
 
 export const getCommand = 'read';
 export const setCommand = 'write';
@@ -18,7 +19,13 @@ export default (path, command, data = {}) => new Promise ((resolve, reject) => {
 
           return readFile(absolute, ENCODING);
         })
-        .then(str => resolve(JSON.parse(str)), error => reject(error));
+        .then((str) => {
+          try {
+            resolve(expandCathegories(JSON.parse(str)));
+          } catch (e) {
+            reject('Reading data error.');
+          }
+        }, error => reject(error));
       break;
     case setCommand:
       try {

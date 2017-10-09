@@ -18,5 +18,7 @@ export const expandCathegories = (data = {}) => {
     return expandedIndex;
   });
 
+  cathegories.unshift(ALL);
+
   return { ...data, cathegories, cathegoryList };
 };

@@ -1252,6 +1252,8 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _constants = __webpack_require__(28);
 
+	var _utils = __webpack_require__(10);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var getCommand = exports.getCommand = 'read';
@@ -1275,7 +1277,11 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	          return (0, _fiojs.readFile)(absolute, _constants.ENCODING);
 	        }).then(function (str) {
-	          return resolve(JSON.parse(str));
+	          try {
+	            resolve((0, _utils.expandCathegories)(JSON.parse(str)));
+	          } catch (e) {
+	            reject('Reading data error.');
+	          }
 	        }, function (error) {
 	          return reject(error);
 	        });
@@ -1358,6 +1364,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	    cathegoryList[expandedIndex] = cathegory;
 	    return expandedIndex;
 	  });
+
+	  cathegories.unshift(ALL);
 
 	  return _extends({}, data, { cathegories: cathegories, cathegoryList: cathegoryList });
 	};
