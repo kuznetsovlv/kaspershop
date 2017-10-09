@@ -1272,7 +1272,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          if (!exists) {
 	            return '{}';
 	          } else if (fileType !== 'regular file') {
-	            throw 'Request on incorrect path.';
+	            reject('Request on incorrect path.');
 	          }
 
 	          return (0, _fiojs.readFile)(absolute, _constants.ENCODING);
@@ -1283,7 +1283,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            reject('Reading data error.');
 	          }
 	        }, function (error) {
-	          return reject(error);
+	          return reject('Reading data error.');
 	        });
 	        break;
 	      case setCommand:

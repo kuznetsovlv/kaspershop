@@ -14,7 +14,7 @@ export default (path, command, data = {}) => new Promise ((resolve, reject) => {
           if (!exists) {
             return '{}';
           } else if (fileType !== 'regular file') {
-            throw 'Request on incorrect path.';
+            reject('Request on incorrect path.');
           }
 
           return readFile(absolute, ENCODING);
@@ -25,7 +25,7 @@ export default (path, command, data = {}) => new Promise ((resolve, reject) => {
           } catch (e) {
             reject('Reading data error.');
           }
-        }, error => reject(error));
+        }, error => reject('Reading data error.'));
       break;
     case setCommand:
       try {
