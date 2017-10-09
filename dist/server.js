@@ -1218,6 +1218,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return (0, _services.cathegories)(path, command, params);
 	      case 'goods':
 	        return (0, _services.goods)(path, command, params);
+	      case 'getDefaults':
+	        return (0, _services.getDefaults)(path, command, params);
 	      default:
 	        throw 'Unknown service';
 	    }
@@ -1235,7 +1237,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.goods = exports.cathegories = exports.data = undefined;
+	exports.getDefaults = exports.goods = exports.cathegories = exports.data = undefined;
 
 	var _data = __webpack_require__(27);
 
@@ -1249,11 +1251,16 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _goods2 = _interopRequireDefault(_goods);
 
+	var _getDefaults = __webpack_require__(34);
+
+	var _getDefaults2 = _interopRequireDefault(_getDefaults);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.data = _data2.default;
 	exports.cathegories = _cathegories2.default;
 	exports.goods = _goods2.default;
+	exports.getDefaults = _getDefaults2.default;
 
 /***/ }),
 /* 27 */
@@ -1596,6 +1603,34 @@ return /******/ (function(modules) { // webpackBootstrap
 	      default:
 	        throw 'Unknown command "' + command + '"';
 	    }
+	  });
+	};
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+	var _data = __webpack_require__(27);
+
+	var _data2 = _interopRequireDefault(_data);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.default = function (path, command) {
+	  var inputData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+	  return (0, _data2.default)(path, _data.getCommand, {}).then(function (data) {
+	    var defaults = data.defaults;
+
+
+	    return (typeof defaults === 'undefined' ? 'undefined' : _typeof(defaults)) === 'object' ? defaults : {};
 	  });
 	};
 
