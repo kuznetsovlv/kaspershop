@@ -1209,8 +1209,17 @@ return /******/ (function(modules) { // webpackBootstrap
 	        service = data.service,
 	        command = data.command;
 
-	    var params = data.params || params;
-	  }, function (error) {
+	    var params = data.params || {};
+
+	    switch (service) {
+	      case 'data':
+	        return data(path, command, params);
+	      case 'cathegories':
+	        return (0, _services.cathegories)(path, command, params);
+	      default:
+	        throw 'Unknown service';
+	    }
+	  }).then(function (data) {}, function (error) {
 	    return (0, _utils.sendError)(response, 500, error.message || error);
 	  });
 	};
@@ -1224,15 +1233,20 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.data = undefined;
+	exports.cathegories = exports.data = undefined;
 
 	var _data = __webpack_require__(27);
 
 	var _data2 = _interopRequireDefault(_data);
 
+	var _cathegories = __webpack_require__(32);
+
+	var _cathegories2 = _interopRequireDefault(_cathegories);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.data = _data2.default;
+	exports.cathegories = _cathegories2.default;
 
 /***/ }),
 /* 27 */
@@ -1273,7 +1287,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	          if (!exists) {
 	            return '{}';
 	          } else if (fileType !== 'regular file') {
-	            reject('Request on incorrect path.');
+	            reject('Path is unapproachable.');
 	          }
 
 	          return (0, _fiojs.readFile)(absolute, _constants.ENCODING);
@@ -1410,6 +1424,40 @@ return /******/ (function(modules) { // webpackBootstrap
 	  } catch (e) {
 	    return data;
 	  }
+	};
+
+/***/ }),
+/* 31 */,
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _data = __webpack_require__(27);
+
+	var _data2 = _interopRequireDefault(_data);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var getCathegoriesCommand = 'getCathegories';
+
+	exports.default = function (path, command) {
+	  var inputData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+	  return (0, _data2.default)(path, _data.getCommand, inputData).then(function (data) {
+	    switch (command) {
+	      case getCathegoriesCommand:
+	        var cathegories = data.cathegories,
+	            cathegoryList = data.cathegoryList;
+
+	        return { cathegories: cathegories, cathegoryList: cathegoryList };
+	      default:
+	        throw 'Unknown command "' + command + '"';
+	    }
+	  });
 	};
 
 /***/ })

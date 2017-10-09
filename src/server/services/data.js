@@ -14,7 +14,7 @@ export default (path, command, data = {}) => new Promise ((resolve, reject) => {
           if (!exists) {
             return '{}';
           } else if (fileType !== 'regular file') {
-            reject('Request on incorrect path.');
+            reject('Path is unapproachable.');
           }
 
           return readFile(absolute, ENCODING);

@@ -2,8 +2,10 @@
   "cathegories": [],
   "goods": {},
   "requiredFields": [
-    "price",
-    "cathegories"
+    "id",
+    "name",
+    "cathegories",
+    "price"
   ],
   "fields": []
 }
