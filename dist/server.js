@@ -245,7 +245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getPostData = exports.sendData = exports.sendFile = exports.sendError = undefined;
+	exports.expandCathegories = exports.getPostData = exports.sendData = exports.sendFile = exports.sendError = undefined;
 
 	var _sendError = __webpack_require__(11);
 
@@ -263,12 +263,15 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _getPostData2 = _interopRequireDefault(_getPostData);
 
+	var _cathegoryUtils = __webpack_require__(30);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.sendError = _sendError2.default;
 	exports.sendFile = _sendFile2.default;
 	exports.sendData = _sendData2.default;
 	exports.getPostData = _getPostData2.default;
+	exports.expandCathegories = _cathegoryUtils.expandCathegories;
 
 /***/ }),
 /* 11 */
@@ -1320,6 +1323,44 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 	var ENCODING = exports.ENCODING = 'utf8';
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+	var ALL = -1;
+	var INIT = 1;
+
+	var expandCathegories = exports.expandCathegories = function expandCathegories() {
+	  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	  var cathegoryList = _defineProperty({}, ALL, 'Все');
+
+	  var cathegories = data.cathegories;
+
+
+	  if (!Array.isArray(cathegories)) {
+	    cathegories = [];
+	  }
+
+	  cathegories = cathegories.map(function (cathegory, index) {
+	    var expandedIndex = INIT << index;
+	    cathegoryList[expandedIndex] = cathegory;
+	    return expandedIndex;
+	  });
+
+	  return _extends({}, data, { cathegories: cathegories, cathegoryList: cathegoryList });
+	};
 
 /***/ })
 /******/ ])

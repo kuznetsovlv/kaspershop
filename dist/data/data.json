@@ -1,0 +1,9 @@
+{
+  "cathegories": [],
+  "goods": {},
+  "requiredFields": [
+    "price",
+    "cathegories"
+  ],
+  "fields": []
+}
