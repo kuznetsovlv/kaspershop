@@ -245,7 +245,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.expandCathegories = exports.getPostData = exports.sendData = exports.sendFile = exports.sendError = undefined;
+	exports.compressCathegories = exports.expandCathegories = exports.getPostData = exports.sendData = exports.sendFile = exports.sendError = undefined;
 
 	var _sendError = __webpack_require__(11);
 
@@ -272,6 +272,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	exports.sendData = _sendData2.default;
 	exports.getPostData = _getPostData2.default;
 	exports.expandCathegories = _cathegoryUtils.expandCathegories;
+	exports.compressCathegories = _cathegoryUtils.compressCathegories;
 
 /***/ }),
 /* 11 */
@@ -1288,7 +1289,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        break;
 	      case setCommand:
 	        try {
-	          data = JSON.stringify(data);
+	          data = (0, _utils.compressCathegories)(JSON.stringify(data));
 	          (0, _fiojs.writeFile)(path, data, _constants.ENCODING).then(function (data) {
 	            return resolve('OK');
 	          }, function (error) {
@@ -1340,6 +1341,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
@@ -1350,7 +1353,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	var expandCathegories = exports.expandCathegories = function expandCathegories() {
 	  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
 
-	  var cathegoryList = _defineProperty({}, ALL, 'Все');
+	  var cathegoryList = _defineProperty({}, ALL, {
+	    id: ALL,
+	    value: 'Все'
+	  });
 
 	  var cathegories = data.cathegories;
 
@@ -1361,13 +1367,49 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	  cathegories = cathegories.map(function (cathegory, index) {
 	    var expandedIndex = INIT << index;
-	    cathegoryList[expandedIndex] = cathegory;
+	    cathegoryList[expandedIndex] = {
+	      id: expandedIndex,
+	      value: cathegory
+	    };
 	    return expandedIndex;
 	  });
 
 	  cathegories.unshift(ALL);
 
 	  return _extends({}, data, { cathegories: cathegories, cathegoryList: cathegoryList });
+	};
+
+	var compressCathegories = exports.compressCathegories = function compressCathegories() {
+	  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
+
+	  try {
+	    var cathegoryList = data.cathegoryList;
+
+
+	    if (!cathegoryList || (typeof cathegoryList === 'undefined' ? 'undefined' : _typeof(cathegoryList)) !== 'object') {
+	      return data;
+	    }
+
+	    var newData = _extends({}, data);
+	    delete newData.cathegoryList;
+
+	    var cathegories = newData.cathegories;
+
+
+	    if (!Array.isArray(cathegories)) {
+	      return newData;
+	    }
+
+	    cathegories = cathegories.filter(function (cathegoryIndex) {
+	      return cathegoryIndex !== ALL;
+	    }).map(function (cathegoryIndex) {
+	      return cathegoryList[cathegoryIndex].value;
+	    });
+
+	    return _extends({}, newData, { cathegories: cathegories });
+	  } catch (e) {
+	    return data;
+	  }
 	};
 
 /***/ })

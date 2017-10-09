@@ -1,7 +1,7 @@
 import { getFileInfo, readFile, writeFile } from 'fiojs';
 import Promise from 'promise';
 import { ENCODING } from '../constants';
-import { expandCathegories } from '../utils';
+import { expandCathegories, compressCathegories } from '../utils';
 
 export const getCommand = 'read';
 export const setCommand = 'write';
@@ -29,7 +29,7 @@ export default (path, command, data = {}) => new Promise ((resolve, reject) => {
       break;
     case setCommand:
       try {
-        data = JSON.stringify(data);
+        data = compressCathegories(JSON.stringify(data));
         writeFile(path, data, ENCODING)
           .then(data => resolve('OK'), error => reject(`Can not save data ${JSON.stringify(data)}.`));
       } catch (error) {
