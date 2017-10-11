@@ -68,7 +68,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _onGet2 = _interopRequireDefault(_onGet);
 
-	var _onPost = __webpack_require__(25);
+	var _onPost = __webpack_require__(26);
 
 	var _onPost2 = _interopRequireDefault(_onPost);
 
@@ -263,7 +263,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _getPostData2 = _interopRequireDefault(_getPostData);
 
-	var _cathegoryUtils = __webpack_require__(30);
+	var _cathegoryUtils = __webpack_require__(25);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -1191,176 +1191,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ }),
 /* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _utils = __webpack_require__(10);
-
-	var _services = __webpack_require__(26);
-
-	exports.default = function (request, response) {
-	  (0, _utils.getPostData)(request).then(function (data) {
-	    var path = data.path,
-	        service = data.service,
-	        command = data.command;
-
-	    var params = data.params || {};
-
-	    switch (service) {
-	      case 'data':
-	        return data(path, command, params);
-	      case 'cathegories':
-	        return (0, _services.cathegories)(path, command, params);
-	      case 'goods':
-	        return (0, _services.goods)(path, command, params);
-	      case 'getDefaults':
-	        return (0, _services.getDefaults)(path, command, params);
-	      default:
-	        throw 'Unknown service';
-	    }
-	  }).then(function (data) {}, function (error) {
-	    return (0, _utils.sendError)(response, 500, error.message || error);
-	  });
-	};
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.getDefaults = exports.goods = exports.cathegories = exports.data = undefined;
-
-	var _data = __webpack_require__(27);
-
-	var _data2 = _interopRequireDefault(_data);
-
-	var _cathegories = __webpack_require__(32);
-
-	var _cathegories2 = _interopRequireDefault(_cathegories);
-
-	var _goods = __webpack_require__(33);
-
-	var _goods2 = _interopRequireDefault(_goods);
-
-	var _getDefaults = __webpack_require__(34);
-
-	var _getDefaults2 = _interopRequireDefault(_getDefaults);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	exports.data = _data2.default;
-	exports.cathegories = _cathegories2.default;
-	exports.goods = _goods2.default;
-	exports.getDefaults = _getDefaults2.default;
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.setCommand = exports.getCommand = undefined;
-
-	var _fiojs = __webpack_require__(7);
-
-	var _promise = __webpack_require__(15);
-
-	var _promise2 = _interopRequireDefault(_promise);
-
-	var _constants = __webpack_require__(28);
-
-	var _utils = __webpack_require__(10);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var getCommand = exports.getCommand = 'read';
-	var setCommand = exports.setCommand = 'write';
-
-	exports.default = function (path, command) {
-	  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
-	  return new _promise2.default(function (resolve, reject) {
-	    switch (command) {
-	      case getCommand:
-	        (0, _fiojs.getFileInfo)(path).then(function (_ref) {
-	          var exists = _ref.exists,
-	              fileType = _ref.fileType,
-	              absolute = _ref.absolute;
-
-	          if (!exists) {
-	            return '{}';
-	          } else if (fileType !== 'regular file') {
-	            reject('Path is unapproachable.');
-	          }
-
-	          return (0, _fiojs.readFile)(absolute, _constants.ENCODING);
-	        }).then(function (str) {
-	          try {
-	            resolve((0, _utils.expandCathegories)(JSON.parse(str)));
-	          } catch (e) {
-	            reject('Reading data error.');
-	          }
-	        }, function (error) {
-	          return reject('Reading data error.');
-	        });
-	        break;
-	      case setCommand:
-	        try {
-	          data = (0, _utils.compressCathegories)(JSON.stringify(data));
-	          (0, _fiojs.writeFile)(path, data, _constants.ENCODING).then(function (data) {
-	            return resolve('OK');
-	          }, function (error) {
-	            return reject('Can not save data ' + JSON.stringify(data) + '.');
-	          });
-	        } catch (error) {
-	          reject(error);
-	        }
-	        break;
-	      default:
-	        reject('Unknown command "' + command + '" for data service.');
-	    }
-	  });
-	};
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.ENCODING = undefined;
-
-	var _encoding = __webpack_require__(29);
-
-	exports.ENCODING = _encoding.ENCODING;
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	var ENCODING = exports.ENCODING = 'utf8';
-
-/***/ }),
-/* 30 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1441,8 +1271,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ }),
-/* 31 */,
-/* 32 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1451,7 +1280,177 @@ return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _data = __webpack_require__(27);
+	var _utils = __webpack_require__(10);
+
+	var _services = __webpack_require__(27);
+
+	exports.default = function (request, response) {
+	  (0, _utils.getPostData)(request).then(function (data) {
+	    var path = data.path,
+	        service = data.service,
+	        command = data.command;
+
+	    var params = data.params || {};
+
+	    switch (service) {
+	      case 'data':
+	        return data(path, command, params);
+	      case 'cathegories':
+	        return (0, _services.cathegories)(path, command, params);
+	      case 'goods':
+	        return (0, _services.goods)(path, command, params);
+	      case 'getDefaults':
+	        return (0, _services.getDefaults)(path, command, params);
+	      default:
+	        throw 'Unknown service';
+	    }
+	  }).then(function (data) {}, function (error) {
+	    return (0, _utils.sendError)(response, 500, error.message || error);
+	  });
+	};
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.getDefaults = exports.goods = exports.cathegories = exports.data = undefined;
+
+	var _data = __webpack_require__(28);
+
+	var _data2 = _interopRequireDefault(_data);
+
+	var _cathegories = __webpack_require__(31);
+
+	var _cathegories2 = _interopRequireDefault(_cathegories);
+
+	var _goods = __webpack_require__(32);
+
+	var _goods2 = _interopRequireDefault(_goods);
+
+	var _getDefaults = __webpack_require__(33);
+
+	var _getDefaults2 = _interopRequireDefault(_getDefaults);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	exports.data = _data2.default;
+	exports.cathegories = _cathegories2.default;
+	exports.goods = _goods2.default;
+	exports.getDefaults = _getDefaults2.default;
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.setCommand = exports.getCommand = undefined;
+
+	var _fiojs = __webpack_require__(7);
+
+	var _promise = __webpack_require__(15);
+
+	var _promise2 = _interopRequireDefault(_promise);
+
+	var _constants = __webpack_require__(29);
+
+	var _utils = __webpack_require__(10);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var getCommand = exports.getCommand = 'read';
+	var setCommand = exports.setCommand = 'write';
+
+	exports.default = function (path, command) {
+	  var data = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+	  return new _promise2.default(function (resolve, reject) {
+	    switch (command) {
+	      case getCommand:
+	        (0, _fiojs.getFileInfo)(path).then(function (_ref) {
+	          var exists = _ref.exists,
+	              fileType = _ref.fileType,
+	              absolute = _ref.absolute;
+
+	          if (!exists) {
+	            return '{}';
+	          } else if (fileType !== 'regular file') {
+	            reject('Path is unapproachable.');
+	          }
+
+	          return (0, _fiojs.readFile)(absolute, _constants.ENCODING);
+	        }).then(function (str) {
+	          try {
+	            resolve((0, _utils.expandCathegories)(JSON.parse(str)));
+	          } catch (e) {
+	            reject('Reading data error.');
+	          }
+	        }, function (error) {
+	          return reject('Reading data error.');
+	        });
+	        break;
+	      case setCommand:
+	        try {
+	          data = (0, _utils.compressCathegories)(JSON.stringify(data));
+	          (0, _fiojs.writeFile)(path, data, _constants.ENCODING).then(function (data) {
+	            return resolve('OK');
+	          }, function (error) {
+	            return reject('Can not save data ' + JSON.stringify(data) + '.');
+	          });
+	        } catch (error) {
+	          reject(error);
+	        }
+	        break;
+	      default:
+	        reject('Unknown command "' + command + '" for data service.');
+	    }
+	  });
+	};
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	exports.ENCODING = undefined;
+
+	var _encoding = __webpack_require__(30);
+
+	exports.ENCODING = _encoding.ENCODING;
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var ENCODING = exports.ENCODING = 'utf8';
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _data = __webpack_require__(28);
 
 	var _data2 = _interopRequireDefault(_data);
 
@@ -1475,7 +1474,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ }),
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1490,7 +1489,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 
-	var _data = __webpack_require__(27);
+	var _data = __webpack_require__(28);
 
 	var _data2 = _interopRequireDefault(_data);
 
@@ -1607,7 +1606,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1618,7 +1617,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
 
-	var _data = __webpack_require__(27);
+	var _data = __webpack_require__(28);
 
 	var _data2 = _interopRequireDefault(_data);
 

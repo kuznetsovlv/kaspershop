@@ -3,3 +3,5 @@ dev/**/*.js
 dev/**/*.js.map
 coverage
 package-lock.json
+.~*
+*.map

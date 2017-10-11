@@ -1,35 +1,13 @@
 "use strict";
 
-const webpack = require('webpack');
-const path = require('path');
+import webpack from 'webpack';
+import path, { resolve } from 'path';
+import getType from './getType';
 
-const TYPE_MAP = {
-  development: ['d', 'development'],
-  product: ['p', 'product']
-};
-
-const TYPES = Object.keys(TYPE_MAP);
-const {
-  length: COUNT
-} = TYPES;
-
-const TYPE = process.argv.reduce((type, arg) => {
-  for (let i = 0; i < COUNT; ++i) {
-    const testType = TYPES[i];
-
-    const [short, long] = TYPE_MAP[testType];
-
-    if (arg === `-${short}` || arg === `--${long}`)
-      return testType;
-  }
-
-  return type;
-}, TYPES[0]);
+const TYPE = getType();
 
 const DEV = TYPE === "development";
 const PRODUCT = TYPE === "product";
-
-console.log("TYPE: ", TYPE);
 
 const plugins = [
   new webpack.NoErrorsPlugin(),
@@ -51,52 +29,31 @@ const productPlugins = [
   })
 ];
 
-const createOutput = () => {
-  const output = {
-    filename: 'index.js',
-    path: path.resolve(__dirname, PRODUCT ? 'dist' : 'dev')
-  };
 
-  if (PRODUCT) {
-    output.library = 'kasperskyShop';
-    output.libraryTarget = 'umd';
-  }
-
-  return output;
-}
-
-module.exports = {
-  context: path.resolve(__dirname, 'src'),
-
-  entry: DEV ? './index_dev' : './index',
-
-  noInfo: true,
-
-  target: PRODUCT ? 'node' : 'web',
-
-  output: createOutput(),
-
+const config = {
+  context: resolve(__dirname, 'src', 'web'),
+  entry: './index',
+  noinfo: true,
+  target: 'web',
+  output: {
+    filename: 'bundle.js',
+    path: resolve(__dirname, 'dist')
+  },
   watch: DEV,
-
   watchOptions: {
     aggregateTimeout: 100
   },
-
   devtool: DEV ? "cheap-source-map" : null,
-
   plugins: PRODUCT ? plugins.concat(productPlugins) : plugins,
-
   resolve: {
     modulesDirectories: ['node_modules'],
     extensions: ['', '.js', '.jsx']
   },
-
   resolveLoader: {
     modulesDirectories: ['node_modules'],
     moduleTemplates: ['*-loader', '*'],
     extensions: ['', '.js']
   },
-
   module: {
     loaders: [
       {
@@ -121,4 +78,6 @@ module.exports = {
       }]
     }]
   }
-}
+};
+
+export default config;
