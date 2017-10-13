@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { HashRouter, Switch, Route } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {
   askFields,
@@ -7,6 +8,11 @@ import {
   askDefaults,
   selectCathegory
 } from './actions';
+import {
+  List,
+  Good,
+  Bag
+} from './forms';
 
 class App extends Component {
 
@@ -92,7 +98,17 @@ class App extends Component {
       return null;
     }
 
-    return <div />;
+    return (
+      <main>
+        <HashRouter>
+          <Switch>
+            <Route exact path="/" component={List} />
+            <Route path="/good" component={Good} />
+            <Route exact path="/bag" component={Bag} />
+          </Switch>
+        </HashRouter>
+      </main>
+    );
   }
 }
 
