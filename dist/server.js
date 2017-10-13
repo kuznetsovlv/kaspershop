@@ -357,10 +357,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	  response.statusCode = 200;
 	  response.statusMessage = 'OK';
 	  response.setHeader('Content-Type', (0, _httpapijs.getContentType)('json'));
-	  response.setHeader('Content-Length', strData.length);
-	  response.write(strData, function () {
-	    return response.end();
-	  });
+	  response.end(strData);
 	};
 
 /***/ }),
@@ -1301,10 +1298,14 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return (0, _services.goods)(path, command, params);
 	      case 'getDefaults':
 	        return (0, _services.getDefaults)(path, command, params);
+	      case 'fields':
+	        return (0, _services.fields)(path, command, params);
 	      default:
 	        throw 'Unknown service';
 	    }
-	  }).then(function (data) {}, function (error) {
+	  }).then(function (data) {
+	    return (0, _utils.sendData)(response, !!data, data);
+	  }, function (error) {
 	    return (0, _utils.sendError)(response, 500, error.message || error);
 	  });
 	};
@@ -1318,7 +1319,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
-	exports.getDefaults = exports.goods = exports.cathegories = exports.data = undefined;
+	exports.fields = exports.getDefaults = exports.goods = exports.cathegories = exports.data = undefined;
 
 	var _data = __webpack_require__(28);
 
@@ -1336,12 +1337,17 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	var _getDefaults2 = _interopRequireDefault(_getDefaults);
 
+	var _fields = __webpack_require__(34);
+
+	var _fields2 = _interopRequireDefault(_fields);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	exports.data = _data2.default;
 	exports.cathegories = _cathegories2.default;
 	exports.goods = _goods2.default;
 	exports.getDefaults = _getDefaults2.default;
+	exports.fields = _fields2.default;
 
 /***/ }),
 /* 28 */
@@ -1527,7 +1533,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	            }, {});
 	            return h;
 	          }, {});
-	          return hash;
+	          return { hash: hash, ids: ids };
 	        }
 	      case getGoodCommand:
 	        {
@@ -1630,6 +1636,38 @@ return /******/ (function(modules) { // webpackBootstrap
 
 
 	    return (typeof defaults === 'undefined' ? 'undefined' : _typeof(defaults)) === 'object' ? defaults : {};
+	  });
+	};
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _data = __webpack_require__(28);
+
+	var _data2 = _interopRequireDefault(_data);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var getFieldsCommand = 'getFields';
+
+	exports.default = function (path, command) {
+	  var inputData = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {};
+	  return (0, _data2.default)(path, _data.getCommand, {}).then(function (data) {
+	    switch (command) {
+	      case getFieldsCommand:
+	        var fields = data.fields;
+
+	        return { fields: fields };
+	      default:
+	        throw 'Unknown command "' + command + '"';
+	    }
 	  });
 	};
 

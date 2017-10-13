@@ -1,16 +1,20 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore } from 'redux';
-// import reducer from './reducer';
-// import App from './App';
+import thunkMiddleware from 'redux-thunk';
+import { createLogger } from 'redux-logger';
+import { createStore, applyMiddleware } from 'redux';
+import reducer from './reducer';
+import App from './App';
 
-// let store = createStore(reducer);
-const store = createStore(x => x);
+const { DEV } = process.env;
+
+const middlewares = DEV ? applyMiddleware(thunkMiddleware, createLogger()) : applyMiddleware(thunkMiddleware);
+
+const store = createStore(reducer, middlewares);
 
 render (
   <Provider store={store}>
-    <div />
-    {/* <App /> */}
-  </Provider>, document.body
+    <App />
+  </Provider>, document.getElementById('app')
 );

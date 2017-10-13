@@ -21,7 +21,7 @@ export default (path, command, inputData = {}) => data(path, getCommand, {}).the
           .reduce((g, field) => ({ ...g, [field]: good[field], complite: false }), {});
         return h;
       }, {});
-      return hash;
+      return { hash, ids };
     }
     case getGoodCommand: {
       const { id } = operatingInputData;

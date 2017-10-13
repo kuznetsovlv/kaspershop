@@ -3,7 +3,8 @@ import {
   data,
   cathegories,
   goods,
-  getDefaults
+  getDefaults,
+  fields
 } from './services';
 
 export default (request, response) => {
@@ -21,9 +22,14 @@ export default (request, response) => {
           return goods(path, command, params);
         case 'getDefaults':
           return getDefaults(path, command, params);
+        case 'fields':
+          return fields(path, command, params);
         default:
           throw 'Unknown service';
       }
     })
-    .then((data) => {}, error => sendError(response, 500, error.message || error));
+    .then(
+      data => sendData(response, !!data, data),
+      error => sendError(response, 500, error.message || error)
+    );
 };
