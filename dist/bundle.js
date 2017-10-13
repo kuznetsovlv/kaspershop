@@ -24979,7 +24979,7 @@
 
 	exports.default = function () {
 	  var data = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-	  return (0, _isomorphicFetch2.default)('data/data.json', {
+	  return (0, _isomorphicFetch2.default)(window.location.origin + '/data/data.json', {
 	    method: 'post',
 	    headers: {
 	      Accept: 'application/json',

@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 
-export default (data = {}) => fetch('data/data.json', {
+export default (data = {}) => fetch(`${window.location.origin}/data/data.json`, {
   method: 'post',
   headers: {
     Accept: 'application/json',
