@@ -97,7 +97,7 @@ module.exports = {
     "object-curly-spacing": ["error", "always"],
     "max-len": [
       "error",
-      100,
+      150,
       {
         "ignoreUrls": true,
         "ignoreStrings": true,
