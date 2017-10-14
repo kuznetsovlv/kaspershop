@@ -4,7 +4,7 @@
   "description": "Test task from Kaspersky Lab",
   "main": "dist/index.js",
   "scripts": {
-    "clear": "rm -r dist/*.js dist/*.js.map",
+    "clear": "rm -rf dist/*.js dist/*.js.map dist/data",
     "data": "babel-node ./scripts/clearData.js",
     "server": "node ./dist/server.js",
     "build-server": "babel-node ./scripts/buildServer.js",
@@ -12,7 +12,7 @@
     "build-web": "babel-node ./scripts/buildWeb.js",
     "build-web-product": "npm run build-web product",
     "run-web": "npm-run-all --parallel server",
-    "start": "npm run data && npm-run-all --parallel build-server build-web run-web",
+    "start": "npm run data && npm-run-all --parallel build-server build-web",
     "build": "npm run data && npm run build-server-product && npm run build-web-product",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
