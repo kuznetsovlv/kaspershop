@@ -1,0 +1,18 @@
+{
+  "cathegories": [],
+  "goods": {},
+  "requiredFields": [
+    "id",
+    "name",
+    "cathegories",
+    "price",
+    "amount"
+  ],
+  "fields": [
+    "Масса",
+    "Масса нетто",
+    "Размер",
+    "Размер в упаковке"
+  ],
+  "defaults": {}
+}

@@ -4,13 +4,16 @@
   "description": "Test task from Kaspersky Lab",
   "main": "dist/index.js",
   "scripts": {
+    "clear": "rm -r dist/*.js dist/*.js.map",
+    "data": "babel-node ./scripts/clearData.js",
     "server": "node ./dist/server.js",
     "build-server": "babel-node ./scripts/buildServer.js",
     "build-server-product": "npm run build-server product",
     "build-web": "babel-node ./scripts/buildWeb.js",
     "build-web-product": "npm run build-web product",
     "run-web": "npm-run-all --parallel server",
-    "start": "npm-run-all --parallel build-server build-web run-web",
+    "start": "npm run data && npm-run-all --parallel build-server build-web run-web",
+    "build": "npm run data && npm run build-server-product && npm run build-web-product",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Kuznetsov Leonid (kuznetsovlv1981@gmail.com)",
