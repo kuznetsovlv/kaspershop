@@ -14,11 +14,11 @@ export default (path, command, inputData = {}) => data(path, getCommand, {}).the
     case getGoodsCommand: {
       const requiredFields = operatingData.requiredFields || [];
       const { cathegory } = operatingInputData;
-      const ids = Object.keys(goods).filter(id => goods.id && (goods.id.cathegories & cathegory));
+      const ids = Object.keys(goods).filter(id => goods[id] && (goods[id].cathegories & cathegory));
       const hash = ids.reduce((h, id) => {
         const good = goods[id];
         h[id] = requiredFields
-          .reduce((g, field) => ({ ...g, [field]: good[field], complite: false }), {});
+          .reduce((g, field) => ({ ...g, [field]: good[field], complete: false }), {});
         return h;
       }, {});
       return { hash, ids };
@@ -26,7 +26,7 @@ export default (path, command, inputData = {}) => data(path, getCommand, {}).the
     case getGoodCommand: {
       const { id } = operatingInputData;
       const good = goods[id];
-      return { ...good, complite: true };
+      return { ...good, complete: true };
     }
     case byGoodsCommand: {
       const { goodList } = operatingInputData;

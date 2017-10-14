@@ -6,7 +6,8 @@ import {
   askFields,
   askCathegories,
   askDefaults,
-  selectCathegory
+  selectCathegory,
+  askGoods
 } from './actions';
 import {
   List,
@@ -17,6 +18,7 @@ import {
 class App extends Component {
 
   static propTypes = {
+    loadedCathegories: PropTypes.number.isRequired,
     cathegory: PropTypes.number,
     requests: PropTypes.number,
     error: PropTypes.string,
@@ -30,13 +32,15 @@ class App extends Component {
     askFields: PropTypes.func.isRequired,
     askCathegories: PropTypes.func.isRequired,
     askDefaults: PropTypes.func.isRequired,
-    selectCathegory: PropTypes.func.isRequired
+    selectCathegory: PropTypes.func.isRequired,
+    askGoods: PropTypes.func.isRequired
   };
 
   static defaultProps = {
     requests: 0,
     error: null,
     cathegory: null,
+    loadedCathegories: 0,
     fields: null,
     cathegories: null,
     cathegoryList: null,
@@ -62,7 +66,8 @@ class App extends Component {
       cathegories,
       cathegoryList,
       defaults,
-      cathegory
+      cathegory,
+      loadedCathegories
     } = nextProps;
 
     if (requests > 0) {
@@ -73,7 +78,8 @@ class App extends Component {
       askFields,
       askCathegories,
       askDefaults,
-      selectCathegory
+      selectCathegory,
+      askGoods
     } = this.props;
 
     if (!Array.isArray(fields)) {
@@ -84,6 +90,8 @@ class App extends Component {
       askCathegories();
     } else if (typeof cathegory !== 'number' && cathegories.length > 0) {
       selectCathegory(cathegories[0]);
+    } else if (typeof cathegory === 'number' && !(cathegory & loadedCathegories)) {
+      askGoods(cathegory);
     }
 
     if (!defaults || typeof defaults !== 'object') {
@@ -117,7 +125,8 @@ const mapDispatchToProps = dispatch => ({
   askFields: () => dispatch(askFields()),
   askCathegories: () => dispatch(askCathegories()),
   askDefaults: () => dispatch(askDefaults()),
-  selectCathegory: cathegory => dispatch(selectCathegory(cathegory))
+  selectCathegory: cathegory => dispatch(selectCathegory(cathegory)),
+  askGoods: cathegory => dispatch(askGoods(cathegory))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
