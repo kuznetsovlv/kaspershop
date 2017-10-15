@@ -43,7 +43,8 @@ export default (state = initialState, { type, payload }) => {
       goodList = addGoods(goodList, newGoodList);
       goods = combineArrs(goods, newGoods);
       loadedCathegories |= cathegory;
-      return { ...state, goodList, goods, loadedCathegories };
+      --requests;
+      return { ...state, requests, goodList, goods, loadedCathegories };
   }
   return state;
 };
