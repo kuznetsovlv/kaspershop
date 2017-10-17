@@ -15,6 +15,8 @@ import {
   Bag
 } from './forms';
 
+import './styles.scss';
+
 class App extends Component {
 
   static propTypes = {
@@ -107,7 +109,7 @@ class App extends Component {
     }
 
     return (
-      <main>
+      <main className="main">
         <HashRouter>
           <Switch>
             <Route exact path="/" component={List} />

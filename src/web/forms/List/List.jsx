@@ -24,7 +24,11 @@ class List extends Component {
       goodList
     } = this.props;
 
-    return <div>List template</div>;
+    return (
+      <div>
+        <header>List template</header>
+      </div>
+    );
   }
 }
 

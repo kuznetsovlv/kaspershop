@@ -62,21 +62,20 @@ const config = {
         loader: 'babel'
       },
       {
-        exclude: /node_modules/,
-        test: /\.jsx?$/,
-        loader: 'eslint-loader'
+          test: /\.scss$/,
+          loaders: ['style', 'css', 'sass']
       }
     ],
-    rules: [{
-      test: /\.scss$/,
-      use: [{
-        loader: 'style-loader'
-      }, {
-        loader: 'css-loader'
-      }, {
-        loader: 'sass-loader'
-      }]
-    }]
+    // rules: [{
+    //         test: /\.scss$/,
+    //         use: [{
+    //             loader: "style-loader" // creates style nodes from JS strings
+    //         }, {
+    //             loader: "css-loader" // translates CSS into CommonJS
+    //         }, {
+    //             loader: "sass-loader" // compiles Sass to CSS
+    //         }]
+    //     }]
   }
 };
 
