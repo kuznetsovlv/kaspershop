@@ -1,0 +1,37 @@
+@import "../../mixins/index";
+
+$headerHeight: 100px;
+
+.carcass {
+  @include common-layout;
+  position: relative;
+
+  &__header {
+    height: $headerHeight;
+  }
+
+  &__data {
+    position: absolute;
+    top: $headerHeight;
+    bottom: 0;
+    display: table;
+    @include common-layout;
+  }
+
+  &__cell {
+    @include closable;
+    display: table-cell;
+    vertical-align: top;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &_navigator {
+      width: 250px;
+    }
+
+    &_goods {
+      // width: 100%;
+    }
+  }
+}

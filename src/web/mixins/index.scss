@@ -1,0 +1,7 @@
+@import "closable";
+@import "expanded";
+
+@mixin common-layout {
+  @include closable;
+  @include expanded;
+}

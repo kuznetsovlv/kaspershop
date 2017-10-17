@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import bemclassnames from 'bemclassnames';
 import { showGood } from '../../utils';
+
+import './styles.scss';
+
+const block = 'carcass';
+const headerElement = 'header';
+const dataSectionElement = "data";
+const dataCellElement = "cell";
 
 class List extends Component {
   static propTypes = {
@@ -24,9 +32,21 @@ class List extends Component {
       goodList
     } = this.props;
 
+    const blockClass = bemclassnames(block);
+    const headerClass = bemclassnames(block, headerElement);
+    const dataClass = bemclassnames(block, dataSectionElement);
+    const navigatorClass = bemclassnames(block, dataCellElement, 'navigator');
+    const goodListClass = bemclassnames(block, dataCellElement, 'goods');
+
     return (
-      <div>
-        <header>List template</header>
+      <div className={blockClass}>
+        <header className={headerClass}>List template</header>
+        <section className={dataClass}>
+          <nav className={navigatorClass}>
+          </nav>
+          <section className={goodListClass}>
+          </section>
+        </section>
       </div>
     );
   }
