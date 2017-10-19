@@ -4,13 +4,17 @@ import { connect } from 'react-redux';
 import bemclassnames from 'bemclassnames';
 import { showGood } from '../../utils';
 import { Cathegories } from '../../components';
+import {
+  blockName,
+  headerElement,
+  dataSectionElement,
+  dataCellElement,
+  titleElem,
+  navigatorMod,
+  goodsMod
+} from './constants';
 
 import './styles.scss';
-
-const blockName = 'carcass';
-const headerElement = 'header';
-const dataSectionElement = "data";
-const dataCellElement = "cell";
 
 class List extends Component {
   static propTypes = {
@@ -36,15 +40,16 @@ class List extends Component {
     const blockNameClass = bemclassnames(blockName);
     const headerClass = bemclassnames(blockName, headerElement);
     const dataClass = bemclassnames(blockName, dataSectionElement);
-    const navigatorClass = bemclassnames(blockName, dataCellElement, 'navigator');
-    const goodListClass = bemclassnames(blockName, dataCellElement, 'goods');
+    const navigatorClass = bemclassnames(blockName, dataCellElement, navigatorMod);
+    const navigatorTitleClass = bemclassnames(blockName, titleElem, navigatorMod);
+    const goodListClass = bemclassnames(blockName, dataCellElement, goodsMod);
 
     return (
       <div className={blockNameClass}>
         <header className={headerClass}>List template</header>
         <section className={dataClass}>
           <nav className={navigatorClass}>
-            <div>Каталог</div>
+            <div className={navigatorTitleClass}>Каталог</div>
             <Cathegories />
           </nav>
           <section className={goodListClass}>

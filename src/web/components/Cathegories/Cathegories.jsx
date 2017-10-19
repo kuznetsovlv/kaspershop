@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bemclassnames from 'bemclassnames';
+import { blockName, cathegoryElement } from './constants';
 
 import './styles.scss';
-
-const blockName = 'cathegory-selector';
-const cathegoryElement = 'cathegory';
 
 class Cathegories extends Component {
   static propTypes = {
