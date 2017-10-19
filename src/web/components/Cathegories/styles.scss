@@ -1,0 +1,32 @@
+@import "../../mixins/index";
+
+.cathegory-selector {
+  @include closable;
+
+  list-style-type: none;
+  width: 100%;
+
+  &__cathegory {
+    background: #00ffbf;
+    font: 16px "Times New Roman", Times, serif;
+    padding: 5px;
+    margin: 1px;
+    cursor: pointer;
+
+    &:hover {
+      background: #00ff80;
+      font-style: italic;
+    }
+
+    &_inline {
+      display: inline-block;
+      vertical-align: top;
+    }
+
+    &_selected {
+      background: #40ff00;
+      color: #fff;
+      font-weight: bold;
+    }
+  }
+}
