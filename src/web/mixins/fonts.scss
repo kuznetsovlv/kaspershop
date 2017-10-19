@@ -1,0 +1,41 @@
+$fontName: "Times New Roman", Times, serif;
+
+$tiny_size: 8px;
+$small_size: 12px;
+$base_size: 14px;
+$normal_size: 16px;
+$large_size: 18px;
+$huge_size: 24px;
+$enormous_size: 32px;
+
+@mixin usage-font {
+  font-family: $fontName;
+}
+
+@mixin header-title {
+  font-size: $huge_size;
+}
+
+@mixin header-text {
+  font-size: $large_size;
+}
+
+@mixin title {
+  font-size: $large_size;
+}
+
+@mixin menu-text {
+  font-size: $normal_size;
+}
+
+@mixin base-text {
+  font-size: $base_size;
+}
+
+@mixin small-text {
+  font-size: $small_size;
+}
+
+@mixin tiny-text {
+  font-size: $tiny_size;
+}

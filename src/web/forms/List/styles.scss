@@ -7,6 +7,7 @@ $headerHeight: 100px;
   position: relative;
 
   &__header {
+    @include header-text;
     height: $headerHeight;
   }
 
@@ -27,11 +28,19 @@ $headerHeight: 100px;
     overflow-y: auto;
 
     &_navigator {
+      background: #00ff40;
       width: 250px;
     }
 
-    &_goods {
-      // width: 100%;
+    &_goods {}
+  }
+
+  &__title {
+    @include title;
+
+    &_navigator {
+      padding: 5px 15px;
+      font-weight: bold;
     }
   }
 }

@@ -7,8 +7,8 @@
   width: 100%;
 
   &__cathegory {
+    @include menu-text;
     background: #00ffbf;
-    font: 16px "Times New Roman", Times, serif;
     padding: 5px;
     margin: 1px;
     cursor: pointer;
