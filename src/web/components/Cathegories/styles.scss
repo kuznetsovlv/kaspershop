@@ -9,8 +9,8 @@
   &__cathegory {
     @include menu-text;
     background: #00ffbf;
-    padding: 5px;
-    margin: 1px;
+    padding: 5px 15px;
+    margin: 1px 0;
     cursor: pointer;
 
     &:hover {
