@@ -92,7 +92,7 @@ class App extends Component {
       askCathegories();
     } else if (typeof cathegory !== 'number' && cathegories.length > 0) {
       selectCathegory(cathegories[0]);
-    } else if (typeof cathegory === 'number' && !(cathegory & loadedCathegories)) {
+    } else if (typeof cathegory === 'number' && cathegory !== 0 && !(cathegory & loadedCathegories)) {
       askGoods(cathegory);
     }
 

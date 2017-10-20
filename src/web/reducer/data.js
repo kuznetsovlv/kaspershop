@@ -5,7 +5,8 @@ import {
   SET_CATHEGORIES,
   SET_DEFAULTS,
   SELECT_CATHEGORY,
-  ADD_GOODS
+  ADD_GOODS,
+  SWITCH_CATHEGORY
 } from '../actions';
 import { combineArrs, addGoods } from '../utils';
 
@@ -20,24 +21,30 @@ export default (state = initialState, { type, payload }) => {
   let { requests } = state;
 
   switch (type) {
-    case ADD_REQUEST:
+    case ADD_REQUEST: {
       ++requests;
       return { ...state, requests };
-    case SET_FIELDS:
+    }
+    case SET_FIELDS: {
       --requests;
       return { ...state, requests, fields: payload };
-    case DATA_ERROR:
+    }
+    case DATA_ERROR: {
       --requests;
       return { ...state, requests, error: payload };
-    case SET_CATHEGORIES:
+    }
+    case SET_CATHEGORIES: {
       --requests;
       return { ...state, ...payload, requests };
-    case SET_DEFAULTS:
+    }
+    case SET_DEFAULTS: {
       --requests;
       return { ...state, requests, defaults: payload };
-    case SELECT_CATHEGORY:
+    }
+    case SELECT_CATHEGORY: {
       return { ...state, cathegory: payload };
-    case ADD_GOODS:
+    }
+    case ADD_GOODS: {
       const { goodList: newGoodList = {}, goods: newGoods = [], cathegory } = payload;
       let { goodList = {}, goods = [], loadedCathegories } = state;
       goodList = addGoods(goodList, newGoodList);
@@ -45,6 +52,13 @@ export default (state = initialState, { type, payload }) => {
       loadedCathegories |= cathegory;
       --requests;
       return { ...state, requests, goodList, goods, loadedCathegories };
+    }
+    case SWITCH_CATHEGORY: {
+      const { id = -1, selected } = payload;
+      let { cathegory = 0 } = state;
+      cathegory = selected ? cathegory | id : cathegory & ~id;
+      return { ...state, cathegory };
+    }
   }
   return state;
 };

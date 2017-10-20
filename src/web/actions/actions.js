@@ -7,6 +7,7 @@ export const SET_CATHEGORIES = 'SET_CATHEGORIES';
 export const SET_DEFAULTS = 'SET_DEFAULTS';
 export const SELECT_CATHEGORY = 'SELECT_CATHEGORY';
 export const ADD_GOODS = 'ADD_GOODS';
+export const SWITCH_CATHEGORY = 'SWITCH_CATHEGORY';
 
 const addRequest = () => ({ type: ADD_REQUEST });
 const setError = error => ({ type: DATA_ERROR, payload: error });
@@ -71,3 +72,8 @@ export const askGoods = cathegory => (dispatch) => {
     error => dispatch(setDefaults({}))
   );
 };
+
+export const switchCathegoryTo = (id, selected) => ({
+  type: SWITCH_CATHEGORY,
+  payload: { id, selected }
+});
