@@ -1,0 +1,10 @@
+@import "../../styleconfig/index";
+
+.good-list {
+  @include common-layout;
+  background: $good_list_bacground_color;
+
+  &__list {
+    @include closable;
+  }
+}

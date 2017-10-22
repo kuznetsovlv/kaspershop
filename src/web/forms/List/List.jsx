@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bemclassnames from 'bemclassnames';
 import { showGood } from '../../utils';
-import { Cathegories } from '../../components';
+import { Cathegories, GoodList } from '../../components';
 import {
   blockName,
   headerElement,
@@ -53,6 +53,7 @@ class List extends Component {
             <Cathegories />
           </nav>
           <section className={goodListClass}>
+            <GoodList />
           </section>
         </section>
       </div>
