@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 class Good extends Component {
   componentWillMount () {
-    window.location.search = '?id=5';
+    // window.location.search = '?id=5';
   }
 
   render () {
@@ -12,7 +12,11 @@ class Good extends Component {
   }
 }
 
-const mapStateToProps = state => ({});
+const mapStateToProps = state => {
+  console.log(state);
+  
+  return {};
+};
 const mapDispatchToProps = dispatch => ({});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Good);

@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import bemclassnames from 'bemclassnames';
 import { blockName, listElement, MAX_AMOUNT_TO_DISPLAY } from './constants';
 import { setPageNumber } from './actions';
+import Item from './Item';
 
 import './styles.scss';
 
@@ -40,7 +41,11 @@ class GoodList extends Component {
           {goods.map(good => {
             const { id } = good;
 
-            return <li key={id} />;
+            return (
+              <li key={id}>
+                <Item { ...good } />
+              </li>
+            );
           })}
         </ul>
       </div>
