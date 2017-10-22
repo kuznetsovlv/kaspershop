@@ -1,6 +1,8 @@
-@import "mixins/index";
+@import "./styleconfig/index";
 
 .main {
   display: block;
+  background: $base_background_color;
   @include common-layout;
+  color: $base_font_color;
 }

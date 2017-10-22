@@ -1,0 +1,7 @@
+$base_background_color: #0ff;
+$base_item_background_color: darken($base_background_color, 2%);
+$selected_item_background_color: #40ff00;
+$hovered_item_background_color: mix($base_item_background_color, $selected_item_background_color);
+
+$base_font_color: #000;
+$item_selected_font_color: #fff;

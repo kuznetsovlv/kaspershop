@@ -1,4 +1,4 @@
-@import "../../mixins/index";
+@import "../../styleconfig/index";
 
 $headerHeight: 100px;
 
@@ -28,7 +28,7 @@ $headerHeight: 100px;
     overflow-y: auto;
 
     &_navigator {
-      background: #0ff;
+      background: $base_background_color;
       width: 270px;
     }
 

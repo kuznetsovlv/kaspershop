@@ -1,4 +1,4 @@
-@import "../../mixins/index";
+@import "../../styleconfig/index";
 
 .cathegory-selector {
   @include closable;
@@ -8,13 +8,14 @@
 
   &__cathegory {
     @include menu-text;
-    background: #00ffbf;
+    color: $base_font_color;
+    background: $base_item_background_color;
     padding: 5px 15px;
     margin: 1px 0;
     cursor: pointer;
 
     &:hover {
-      background: #00ff80;
+      background: $hovered_item_background_color;
       font-style: italic;
     }
 
@@ -24,8 +25,8 @@
     }
 
     &_selected {
-      background: #40ff00;
-      color: #fff;
+      background: $selected_item_background_color;
+      color: $item_selected_font_color;
       font-weight: bold;
     }
   }
