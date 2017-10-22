@@ -90,9 +90,9 @@ class App extends Component {
 
     if (!Array.isArray(cathegories) || !cathegoryList || typeof cathegoryList !== 'object') {
       askCathegories();
-    } else if (typeof cathegory !== 'number' && cathegories.length > 0) {
-      selectCathegory(cathegories[0]);
-    } else if (typeof cathegory === 'number' && cathegory !== 0 && !(cathegory & loadedCathegories)) {
+    } else if (typeof cathegory !== 'number') {
+      selectCathegory(0);
+    } else if (typeof cathegory === 'number' && cathegory !== 0 && (cathegory & loadedCathegories) !== cathegory) {
       askGoods(cathegory);
     }
 
