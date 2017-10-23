@@ -2,7 +2,9 @@ $base_background_color: #0ff;
 $good_list_bacground_color: #40ff00;
 $base_item_background_color: darken($base_background_color, 2%);
 $selected_item_background_color: $good_list_bacground_color;
+$good_item_background_color: darken($good_list_bacground_color, 10%);
 $hovered_item_background_color: mix($base_item_background_color, $selected_item_background_color);
 
 $base_font_color: #000;
-$item_selected_font_color: #fff;
+$additional_font_color: #fff;
+$item_selected_font_color: $additional_font_color;

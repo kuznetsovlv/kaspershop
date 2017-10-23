@@ -1,10 +1,67 @@
 @import "../../styleconfig/index";
 
+$paginatorHeight: 50px;
+
 .good-list {
   @include common-layout;
+  list-style-type: none;
+  display: table;
   background: $good_list_bacground_color;
 
   &__list {
     @include closable;
+    height: calc(100% - #{$paginatorHeight});
+    overflow-y: auto;
+    min-width: 860px;
+    padding: 2px;
+  }
+
+  &__good {
+    background: $good_item_background_color;
+    padding: 2px 10px;
+    margin: 5px;
+    border-radius: 5px;
+  }
+
+  &__link {
+    display: block;
+  }
+
+  &__price {
+    @include enormous-text;
+    color: $base_font_color;
+    font-weight: bold;
+    text-align: left;
+    float: right;
+
+    &:after {
+      content:'';
+      display: block;
+      clear: both;
+    }
+  }
+
+  &__photo,
+  &__info{
+    display: inline-block;
+    margin: 2px;
+    vertical-align: middle;
+  }
+
+  &__info {
+    padding-left: 40px;
+    max-width: 530px;
+  }
+
+  &__name {
+    @include header-text;
+    color: $base_font_color;
+    font-weight: bold;
+  }
+
+  &__cathegory {
+    @include small-text;
+    color: $additional_font_color;
+    font-style: italic;
   }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bemclassnames from 'bemclassnames';
+import { getCathegoriesAsString, has } from '../../utils';
 import { blockName, listElement, MAX_AMOUNT_TO_DISPLAY } from './constants';
 import { setPageNumber } from './actions';
 import Item from './Item';
@@ -59,14 +60,21 @@ const mapStateToProps = ({ data, goodList}) => {
   const { cathegory } = data;
   const indexes = data.goods || [];
   const hash = data.goodList || {};
+  const cathegoryIndexes = data.cathegories || [];
+  const cathegoryHash = data.cathegoryList || {};
   const defaults = data.defaults || {};
   const from = MAX_AMOUNT_TO_DISPLAY * pageNumber;
   const to = from + MAX_AMOUNT_TO_DISPLAY;
 
   const goods = indexes
-    .filter(index => hash[index] && (hash[index].cathegories & cathegory))
+    .filter(index => has(hash, index) && (hash[index].cathegories & cathegory))
     .slice(from, to)
-    .map(index => ({ ...defaults, ...hash[index] }));
+    .map(index => {
+      const good = hash[index]
+      const cathegoryList = getCathegoriesAsString(good.cathegories, cathegoryIndexes, cathegoryHash);
+
+      return { ...defaults, ...good, cathegoryList };
+    });
 
   return {
     pageNumber,

@@ -24,6 +24,18 @@ $enormous_size: 32px;
   font-size: $large_size;
 }
 
+@mixin enormous-text {
+  font-size: $enormous_size;
+}
+
+@mixin huge-text {
+  font-size: $huge_size;
+}
+
+@mixin large-text {
+  font-size: $large_size;
+}
+
 @mixin menu-text {
   font-size: $normal_size;
 }

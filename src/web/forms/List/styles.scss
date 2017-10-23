@@ -4,7 +4,6 @@ $headerHeight: 100px;
 
 .carcass {
   @include common-layout;
-  position: relative;
 
   &__header {
     @include header-text;
@@ -12,11 +11,10 @@ $headerHeight: 100px;
   }
 
   &__data {
-    position: absolute;
-    top: $headerHeight;
-    bottom: 0;
     display: table;
-    @include common-layout;
+    @include closable;
+    width: 100%;
+    height: calc(100% - #{$headerHeight});
   }
 
   &__cell {
