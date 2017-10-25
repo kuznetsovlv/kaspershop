@@ -3,7 +3,13 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bemclassnames from 'bemclassnames';
 import { getCathegoriesAsString, has } from '../../utils';
-import { blockName, listElement, MAX_AMOUNT_TO_DISPLAY } from './constants';
+import { Paginator } from '../../components';
+import {
+  blockName,
+  listElement,
+  paginatorElement,
+  MAX_AMOUNT_TO_DISPLAY
+} from './constants';
 import { setPageNumber } from './actions';
 import Item from './Item';
 
@@ -12,6 +18,7 @@ import './styles.scss';
 class GoodList extends Component {
   static propTypes = {
     pageNumber: PropTypes.number.isRequired,
+    pageAmount: PropTypes.number.isRequired,
     goods: PropTypes.arrayOf(PropTypes.object).isRequired,
     setPageNumber: PropTypes.func.isRequired
   };
@@ -30,11 +37,12 @@ class GoodList extends Component {
   }
 
   render () {
-    const { pageNumber } = this.props;
+    const { pageNumber, pageAmount } = this.props;
     const goods = this.props.goods || [];
 
     const blockClassName = bemclassnames(blockName);
     const listClassName = bemclassnames(blockName, listElement);
+    const paginatorClassName = bemclassnames(blockName, paginatorElement);
 
     return (
       <div className={blockClassName}>
@@ -49,6 +57,12 @@ class GoodList extends Component {
             );
           })}
         </ul>
+        <Paginator
+          className={paginatorClassName}
+          pageNumber={pageNumber}
+          pageAmount={pageAmount}
+          onPageChange={this.handlePageChange}
+        />
       </div>
     );
   }
@@ -66,8 +80,9 @@ const mapStateToProps = ({ data, goodList}) => {
   const from = MAX_AMOUNT_TO_DISPLAY * pageNumber;
   const to = from + MAX_AMOUNT_TO_DISPLAY;
 
-  const goods = indexes
-    .filter(index => has(hash, index) && (hash[index].cathegories & cathegory))
+  const selectedIndexes = indexes.filter(index => has(hash, index) && (hash[index].cathegories & cathegory));
+  const pageAmount = Math.ceil(selectedIndexes.length / MAX_AMOUNT_TO_DISPLAY);
+  const goods = selectedIndexes
     .slice(from, to)
     .map(index => {
       const good = hash[index]
@@ -76,8 +91,10 @@ const mapStateToProps = ({ data, goodList}) => {
       return { ...defaults, ...good, cathegoryList };
     });
 
+
   return {
     pageNumber,
+    pageAmount,
     goods
   };
 };
