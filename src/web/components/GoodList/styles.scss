@@ -64,4 +64,8 @@ $paginatorHeight: 50px;
     color: $additional_font_color;
     font-style: italic;
   }
+
+  &__paginator {
+    height: $paginatorHeight;
+  }
 }

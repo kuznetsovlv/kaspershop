@@ -11,6 +11,8 @@ import {
   closePageAmount
 } from './constants';
 
+import './styles.scss';
+
 export default class Paginator extends Component {
   static propTypes = {
     pageNumber: PropTypes.number.isRequired,
@@ -25,7 +27,24 @@ export default class Paginator extends Component {
   }
 
   handlePageChange (id) {
+    const { pageNumber, onPageChange } = this.props;
 
+    if (typeof onPageChange === 'function') {
+      let newPageNumber;
+
+      switch (id) {
+        case arrowLeftId:
+          newPageNumber = pageNumber - 1;
+          break;
+        case arrowRightId:
+          newPageNumber = pageNumber + 1;
+          break;
+        default:
+          newPageNumber = id;
+      }
+
+      onPageChange(newPageNumber);
+    }
   }
 
   render () {
