@@ -6,5 +6,6 @@ $good_item_background_color: darken($good_list_bacground_color, 10%);
 $hovered_item_background_color: mix($base_item_background_color, $selected_item_background_color);
 
 $base_font_color: #000;
+$price_font_color: lighten($base_font_color, 30%);
 $additional_font_color: #fff;
 $item_selected_font_color: $additional_font_color;

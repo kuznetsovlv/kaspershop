@@ -13,7 +13,7 @@ $paginatorHeight: 50px;
     height: calc(100% - #{$paginatorHeight});
     overflow-y: auto;
     min-width: 860px;
-    padding: 2px;
+    padding: 10px;
   }
 
   &__good {
@@ -29,7 +29,7 @@ $paginatorHeight: 50px;
 
   &__price {
     @include enormous-text;
-    color: $base_font_color;
+    color: $price_font_color;
     font-weight: bold;
     text-align: left;
     float: right;
