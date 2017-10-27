@@ -67,5 +67,6 @@ $paginatorHeight: 50px;
 
   &__paginator {
     height: $paginatorHeight;
+    line-height: $paginatorHeight;
   }
 }

@@ -2,10 +2,14 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import bemclassnames from 'bemclassnames';
 import classnames from 'classnames';
+import Page from './Page';
 import {
   blockName,
   pageElement,
   selectedPageMod,
+  leftSwitcherMod,
+  rightSwitcherMod,
+  pointsMod,
   arrowLeftId,
   arrowRightId,
   closePageAmount
@@ -27,28 +31,34 @@ export default class Paginator extends Component {
   }
 
   handlePageChange (id) {
-    const { pageNumber, onPageChange } = this.props;
+    const { pageNumber, pageAmount, onPageChange } = this.props;
 
     if (typeof onPageChange === 'function') {
       let newPageNumber;
 
       switch (id) {
         case arrowLeftId:
-          newPageNumber = pageNumber - 1;
+          newPageNumber = pageNumber > 0 ? pageNumber - 1 : pageNumber;
           break;
         case arrowRightId:
-          newPageNumber = pageNumber + 1;
+          newPageNumber = pageNumber < pageAmount - 1 ? pageNumber + 1 : pageNumber;
           break;
         default:
           newPageNumber = id;
       }
 
-      onPageChange(newPageNumber);
+      if (newPageNumber !== pageNumber) {
+        onPageChange(newPageNumber);
+      }
     }
   }
 
   render () {
     const { pageNumber, pageAmount, className } = this.props;
+
+    if (pageAmount <= 0) {
+      return null;
+    }
 
     const pageDisplayFlags = [];
     const maxLeft = closePageAmount;
@@ -61,11 +71,28 @@ export default class Paginator extends Component {
     }
 
     const blockClassName = classnames(bemclassnames(blockName), className);
-    const pageClassName = bemclassnames(blockName, pageElement);
+    const leftSwitcherClassName = bemclassnames(blockName, pageElement, leftSwitcherMod);
+    const rightSwitcherClassName = bemclassnames(blockName, pageElement, rightSwitcherMod);
+
+    let pointsDisplaied;
 
     return (
       <div className={blockClassName}>
-        
+        <Page id={arrowLeftId} className={leftSwitcherClassName} onClick={this.handlePageChange}>{arrowLeftId}</Page>
+        {pageDisplayFlags.map((flag, id) => {
+          if (flag) {
+            pointsDisplaied = false;
+            const className = bemclassnames(blockName, pageElement, {[selectedPageMod]: id === pageNumber});
+            const value = id + 1;
+            return <Page key={id} id={id} className={className} onClick={this.handlePageChange}>{value}</Page>
+          } else if (pointsDisplaied) {
+            return null;
+          }
+
+          const className = bemclassnames(blockName, pageElement, pointsMod);
+          return <Page key={id} id={id} className={className}>...</Page>;
+        })}
+        <Page id={arrowRightId} className={rightSwitcherClassName} onClick={this.handlePageChange}>{arrowRightId}</Page>
       </div>
     );
   }
