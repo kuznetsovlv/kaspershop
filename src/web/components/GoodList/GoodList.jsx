@@ -69,7 +69,7 @@ class GoodList extends Component {
 }
 
 const mapStateToProps = ({ data, goodList}) => {
-  const { pageNumber } = goodList;
+  let { pageNumber } = goodList;
 
   const { cathegory } = data;
   const indexes = data.goods || [];
@@ -77,11 +77,19 @@ const mapStateToProps = ({ data, goodList}) => {
   const cathegoryIndexes = data.cathegories || [];
   const cathegoryHash = data.cathegoryList || {};
   const defaults = data.defaults || {};
-  const from = MAX_AMOUNT_TO_DISPLAY * pageNumber;
-  const to = from + MAX_AMOUNT_TO_DISPLAY;
 
   const selectedIndexes = indexes.filter(index => has(hash, index) && (hash[index].cathegories & cathegory));
   const pageAmount = Math.ceil(selectedIndexes.length / MAX_AMOUNT_TO_DISPLAY);
+
+  if (pageNumber >= pageAmount) {
+    pageNumber = pageAmount - 1;
+  } else if (pageNumber < 0) {
+    pageNumber = 0;
+  }
+
+  const from = MAX_AMOUNT_TO_DISPLAY * pageNumber;
+  const to = from + MAX_AMOUNT_TO_DISPLAY;
+
   const goods = selectedIndexes
     .slice(from, to)
     .map(index => {
@@ -90,7 +98,6 @@ const mapStateToProps = ({ data, goodList}) => {
 
       return { ...defaults, ...good, cathegoryList };
     });
-
 
   return {
     pageNumber,
