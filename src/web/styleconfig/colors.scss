@@ -7,6 +7,8 @@ $mixed_background_color: mix($base_item_background_color, $selected_item_backgro
 $hovered_item_background_color: $mixed_background_color;
 
 $paginator_border_color: darken($mixed_background_color, 20%);
+$paginator_default_page_background_color: lighten($good_list_bacground_color, 15%);
+$paginator_selected_page_background_color: darken($good_list_bacground_color, 15%);
 
 $base_font_color: #000;
 $price_font_color: lighten($base_font_color, 30%);
