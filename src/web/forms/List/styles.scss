@@ -22,8 +22,6 @@ $headerHeight: 100px;
     display: table-cell;
     vertical-align: top;
     height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
 
     &_navigator {
       background: $base_background_color;
@@ -39,6 +37,7 @@ $headerHeight: 100px;
     &_navigator {
       padding: 5px 15px;
       font-weight: bold;
+      color: $special_font_color;
     }
   }
 }

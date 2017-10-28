@@ -1,5 +1,5 @@
-$base_background_color: #0ff;
-$good_list_bacground_color: #40ff00;
+$base_background_color: #029797;
+$good_list_bacground_color: #fdb273;
 $base_item_background_color: darken($base_background_color, 2%);
 $selected_item_background_color: $good_list_bacground_color;
 $good_item_background_color: darken($good_list_bacground_color, 10%);
@@ -11,6 +11,7 @@ $paginator_default_page_background_color: lighten($good_list_bacground_color, 15
 $paginator_selected_page_background_color: darken($good_list_bacground_color, 15%);
 
 $base_font_color: #000;
+$additional_font_color: #401d00;
+$special_font_color: #fff;
 $price_font_color: lighten($base_font_color, 30%);
-$additional_font_color: #fff;
 $item_selected_font_color: $additional_font_color;
