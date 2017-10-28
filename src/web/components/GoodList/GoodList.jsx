@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bemclassnames from 'bemclassnames';
+import { addGoodIntoBag } from '../../actions';
 import { getCathegoriesAsString, has } from '../../utils';
 import { Paginator } from '../../components';
 import {
@@ -20,7 +21,8 @@ class GoodList extends Component {
     pageNumber: PropTypes.number.isRequired,
     pageAmount: PropTypes.number.isRequired,
     goods: PropTypes.arrayOf(PropTypes.object).isRequired,
-    setPageNumber: PropTypes.func.isRequired
+    setPageNumber: PropTypes.func.isRequired,
+    addGoodIntoBag: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -30,7 +32,11 @@ class GoodList extends Component {
   }
 
   addGoodToBag (id) {
-    // TODO: Add realisation
+    const { addGoodIntoBag } = this.props;
+
+    if (typeof addGoodIntoBag === 'function') {
+      addGoodIntoBag(id);
+    }
   }
 
   handlePageChange (pageNumber) {
@@ -112,7 +118,8 @@ const mapStateToProps = ({ data, goodList}) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  setPageNumber: pageNumber => dispatch(setPageNumber(pageNumber))
+  setPageNumber: pageNumber => dispatch(setPageNumber(pageNumber)),
+  addGoodIntoBag: id => dispatch(addGoodIntoBag(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(GoodList);
