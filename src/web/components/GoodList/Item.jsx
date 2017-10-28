@@ -11,7 +11,9 @@ import {
   nameElement,
   cathegoryElement,
   linkElement,
-  priceElement
+  priceElement,
+  buttonPlaceElement,
+  buttonElement
 } from './constants';
 
 import './styles.scss';
@@ -23,7 +25,22 @@ export default class Item extends Component {
     name: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,
     cathegoryList: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired
+    price: PropTypes.number.isRequired,
+    onAddToBag: PropTypes.func.isRequired
+  }
+
+  constructor(props) {
+    super(props);
+    this.handleButtonClick = this.handleButtonClick.bind(this);
+  }
+
+  handleButtonClick (event) {
+    const { id, onAddToBag } = this.props;
+
+    if (typeof onAddToBag === 'function') {
+      onAddToBag(id);
+      event.preventDefault();
+    }
   }
 
   render () {
@@ -37,6 +54,8 @@ export default class Item extends Component {
     const cathegoryClassName = bemclassnames(blockName, cathegoryElement);
     const linkClassName = bemclassnames(blockName, linkElement);
     const priceClassName = bemclassnames(blockName, priceElement);
+    const buttonPlaceClassName = bemclassnames(blockName, buttonPlaceElement);
+    const buttonClassName = bemclassnames(blockName, buttonElement);
 
     return (
       <div className={itemClassName}>
@@ -47,6 +66,9 @@ export default class Item extends Component {
             <div className={cathegoryClassName}>{cathegoryList}</div>
           </div>
           <Price price={price} className={priceClassName} />
+          <div className={buttonPlaceClassName}>
+            <input className={buttonClassName} type="button" value="Добавить в корзину" onClick={this.handleButtonClick} />
+          </div>
         </Link>
       </div>
     );

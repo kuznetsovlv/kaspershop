@@ -26,6 +26,11 @@ class GoodList extends Component {
   constructor(props) {
     super(props);
     this.handlePageChange = this.handlePageChange.bind(this);
+    this.addGoodToBag = this.addGoodToBag.bind(this);
+  }
+
+  addGoodToBag (id) {
+    // TODO: Add realisation
   }
 
   handlePageChange (pageNumber) {
@@ -52,7 +57,7 @@ class GoodList extends Component {
 
             return (
               <li key={id}>
-                <Item { ...good } />
+                <Item { ...good } onAddToBag={this.addGoodToBag} />
               </li>
             );
           })}
