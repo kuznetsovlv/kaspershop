@@ -1,4 +1,9 @@
-import { getPostData, sendError, sendData } from './utils';
+import {
+  getPostData,
+  uploadFile,
+  sendError,
+  sendData
+} from './utils';
 import {
   data,
   cathegories,
@@ -34,5 +39,14 @@ export default (request, response) => {
           data => sendData(response, !!data, data),
           error => sendError(response, 500, error.message || error)
         );
+      break;
+    case 'image/jpeg':
+    case 'image/png':
+    case 'image/gif':
+      uploadFile(request).then(
+        () => sendData(response, true, {}),
+        error => sendError(response, 500, error.message || error)
+      );
+
   }
 };
