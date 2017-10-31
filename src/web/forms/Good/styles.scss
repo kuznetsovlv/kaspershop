@@ -1,7 +1,36 @@
 @import "../../styleconfig/index";
 
+$switcherHeight: 40px;
+$borderRadius: 5px;
+$placesMarging: 2px;
+
 .good-form {
   @include expanded;
-  margin: 20px;
-  background: $additional_background_color;
+  position: relative;
+
+  &__wrapper {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 10px;
+    padding: 2px;
+    background: $additional_background_color;
+    border-radius: $borderRadius;
+  }
+
+  &__switcher-place {
+    height: $switcherHeight;
+    border-radius: $borderRadius;
+    background: $good_item_background_color;
+    margin-bottom: $placesMarging;
+  }
+
+  &__data-place {
+    height: calc(100% - #{$switcherHeight} - #{$placesMarging});
+    border-radius: $borderRadius;
+    overflow-y: auto;
+    background: $good_item_background_color;
+  }
 }

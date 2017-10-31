@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import bemclassnames from 'classnames';
+import bemclassnames from 'bemclassnames';
 import { GoodData } from '../../components';
 import { selectGood, clearGood } from './actions';
-import { blockName, dataBlockName } from './constants';
+import {
+  blockName,
+  dataBlockName,
+  wrapperElement,
+  switcherPlaceElement,
+  dataPlaceElement,
+  goodElement
+} from './constants';
 
 import './styles.scss';
 
@@ -39,11 +46,22 @@ class Good extends Component {
   render () {
     const good = this.props.good || {};
 
-    const blockClass = bemclassnames(blockName);
+    const blockClassName = bemclassnames(blockName);
+    const wrapperClassName = bemclassnames(blockName, wrapperElement);
+    const switcherPlaceClassName = bemclassnames(blockName, switcherPlaceElement);
+    const dataPlaceClassName = bemclassnames(blockName, dataPlaceElement);
+    const goodClassName = bemclassnames(blockName, goodElement);
 
     return (
-      <div className={blockClass}>
-        <GoodData goog={good} blockName={dataBlockName} />
+      <div className={blockClassName}>
+        <div className={wrapperClassName}>
+          <div className={switcherPlaceClassName}>
+          </div>
+
+          <div className={dataPlaceClassName}>
+            <GoodData goog={good} blockName={dataBlockName} className={goodClassName} />
+          </div>
+        </div>
       </div>
     );
   }
