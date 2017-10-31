@@ -1,0 +1,7 @@
+@import "../../styleconfig/index";
+
+.good-form {
+  @include expanded;
+  margin: 20px;
+  background: $additional_background_color;
+}
