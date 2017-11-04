@@ -6,7 +6,8 @@ import {
   SET_DEFAULTS,
   SELECT_CATHEGORY,
   ADD_GOODS,
-  SWITCH_CATHEGORY
+  SWITCH_CATHEGORY,
+  SET_GOOD
 } from '../actions';
 import { combineArrs, addGoods } from '../utils';
 
@@ -59,6 +60,21 @@ export default (state = initialState, { type, payload }) => {
       cathegory = selected ? cathegory | id : cathegory & ~id;
       return { ...state, cathegory };
     }
+    case SET_GOOD: {
+      const { id } = payload;
+      let goods = state.goods || [];
+      const goodList = state.goodList || {};
+      const newGoodList = { ...goodList, [id]: payload };
+
+      --requests;
+
+      if (goods.indexOf(id) < 0) {
+        return { ...state, requests, goods: [...goods, id], goodList: newGoodList };
+      } else {
+        return { ...state, requests, goodList: newGoodList };
+      }
+    }
   }
+
   return state;
 };

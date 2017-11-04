@@ -6,6 +6,7 @@ export const SET_FIELDS = 'SET_FIELDS';
 export const SET_CATHEGORIES = 'SET_CATHEGORIES';
 export const SET_DEFAULTS = 'SET_DEFAULTS';
 export const ADD_GOODS = 'ADD_GOODS';
+export const SET_GOOD = 'SET_GOOD';
 
 const addRequest = () => ({ type: ADD_REQUEST });
 const setError = error => ({ type: DATA_ERROR, payload: error });
@@ -62,6 +63,19 @@ export const askGoods = cathegory => (dispatch) => {
     params: { cathegory }
   }).then(
     ({ hash, ids }) => dispatch(((goodList, goods) => ({ type: ADD_GOODS, payload: { goodList, goods, cathegory } }))(hash, ids)),
-    error => dispatch(setDefaults({}))
+    error => dispatch(setError({}))
   );
+};
+
+export const askGood = id => (dispatch) => {
+  dispatch(addRequest());
+
+  return sendRequest({
+    service: 'goods',
+    command: 'getGood',
+    params: { id }
+  }).then(
+    (data) => dispatch(((good) => ({ type: SET_GOOD, payload: { ...good, id } }))(data)),
+  )
+  .catch(error => dispatch(setError({})));
 };

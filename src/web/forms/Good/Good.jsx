@@ -59,7 +59,7 @@ class Good extends Component {
           </div>
 
           <div className={dataPlaceClassName}>
-            <GoodData goog={good} blockName={dataBlockName} className={goodClassName} />
+            <GoodData good={good} blockName={dataBlockName} className={goodClassName} />
           </div>
         </div>
       </div>
