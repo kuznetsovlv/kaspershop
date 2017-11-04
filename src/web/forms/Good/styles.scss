@@ -32,5 +32,9 @@ $placesMarging: 2px;
     border-radius: $borderRadius;
     overflow-y: auto;
     background: $good_item_background_color;
+
+    .data {
+      border-radius: $borderRadius;
+    }
   }
 }
