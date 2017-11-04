@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import bemclassnames from 'bemclassnames';
-import { Photo, Price } from '../../components';
+import { Photo, Price, Availability } from '../../components';
 import {
   blockName,
   itemElement,
@@ -13,7 +13,8 @@ import {
   linkElement,
   priceElement,
   buttonPlaceElement,
-  buttonElement
+  buttonElement,
+  idElement
 } from './constants';
 
 import './styles.scss';
@@ -26,6 +27,7 @@ export default class Item extends Component {
     photo: PropTypes.string.isRequired,
     cathegoryList: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    amount: PropTypes.number.isRequired,
     onAddToBag: PropTypes.func.isRequired
   }
 
@@ -44,7 +46,7 @@ export default class Item extends Component {
   }
 
   render () {
-    const { id, name, photo, cathegoryList, price } = this.props;
+    const { id, name, photo, cathegoryList, price, amount } = this.props;
     const to = `good/${id}`;
 
     const itemClassName = bemclassnames(blockName, itemElement);
@@ -56,6 +58,7 @@ export default class Item extends Component {
     const priceClassName = bemclassnames(blockName, priceElement);
     const buttonPlaceClassName = bemclassnames(blockName, buttonPlaceElement);
     const buttonClassName = bemclassnames(blockName, buttonElement);
+    const idClassName = bemclassnames(blockName, idElement);
 
     return (
       <div className={itemClassName}>
@@ -64,6 +67,8 @@ export default class Item extends Component {
           <div className={infoClassName}>
             <div className={nameClassName}>{name}</div>
             <div className={cathegoryClassName}>{cathegoryList}</div>
+            <div className={idClassName}>Артикул: {id}</div>
+            <Availability amount={amount} />
           </div>
           <Price price={price} className={priceClassName} />
           <div className={buttonPlaceClassName}>

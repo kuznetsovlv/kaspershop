@@ -1,0 +1,37 @@
+@import "../../styleconfig/index";
+
+$borderRadius: 8px;
+$height: 2 * $borderRadius;
+
+.availability {
+  width: 300px !important;
+  height: $height !important;
+  position: relative !important;
+  border: 1px solid #000 !important;
+  border-radius: $borderRadius;
+  background: inherit !important;
+  background: -webkit-linear-gradient(left, #f00 0, #ff0 50%, #0f0 100%) !important;
+  background: -o-linear-gradient(right, #f00 0, #ff0 50%, #0f0 100%) !important;
+  background: -moz-linear-gradient(right, #f00 0, #ff0 50%, #0f0 100%) !important;
+  background: linear-gradient(to right, #f00 0, #ff0 50%, #0f0 100%) !important;
+  overflow: hidden !important;
+
+  &__slider {
+    height: 100% !important;
+    background: #ccc !important;
+    position: absolute !important;
+    right: 0 !important;
+    border-left: 1px solid rgba(0, 0, 0, 0.2);
+  }
+
+  &__text {
+    @include base-text;
+    color: $base_font_color !important;
+    font-weight: bold !important;
+    text-align: center !important;
+    height: 100% !important;
+    width: 100% !important;
+    line-height: $height !important;
+    position: absolute !important;
+  }
+};

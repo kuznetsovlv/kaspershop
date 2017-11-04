@@ -4,6 +4,7 @@ import Photo from './Photo';
 import Price from './Price';
 import Paginator from './Paginator';
 import GoodData from './GoodData';
+import Availability from './Availability';
 
 export {
   Cathegories,
@@ -11,5 +12,6 @@ export {
   Photo,
   Price,
   Paginator,
-  GoodData
+  GoodData,
+  Availability
 };
