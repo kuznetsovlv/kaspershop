@@ -1,9 +1,11 @@
 @import "../../styleconfig/index";
 
 $headerHeight: 100px;
+$navigatorWidth: 270px;
 
 .carcass {
   @include common-layout;
+  position: relative;
 
   &__header {
     @include header-text;
@@ -11,24 +13,27 @@ $headerHeight: 100px;
   }
 
   &__data {
-    display: table;
-    @include closable;
-    width: 100%;
-    height: calc(100% - #{$headerHeight});
+    position: absolute;
+    top: $headerHeight;
+    bottom: 0;
+    left: 0;
+    right: 0;
   }
 
   &__cell {
     @include closable;
-    display: table-cell;
+    display: inline-block;
     vertical-align: top;
     height: 100%;
 
     &_navigator {
       background: $base_background_color;
-      width: 270px;
+      width: $navigatorWidth;
     }
 
-    &_goods {}
+    &_goods {
+      width: calc(100% - $navigatorWidth);
+    }
   }
 
   &__title {

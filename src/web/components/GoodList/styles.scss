@@ -1,6 +1,8 @@
 @import "../../styleconfig/index";
 
 $paginatorHeight: 50px;
+$paginatorBorderWidth: 1px;
+$paginatorClearHeigh: $paginatorHeight - $paginatorBorderWidth;
 $itemHeight: 100px;
 $buttonHeight: 30px;
 $buttonWidth: 200px;
@@ -8,12 +10,11 @@ $buttonWidth: 200px;
 .good-list {
   @include common-layout;
   list-style-type: none;
-  display: table;
   background: $good_list_bacground_color;
 
   &__list {
     @include closable;
-    height: calc(100% - #{$paginatorHeight});
+    height: calc(100% - #{$paginatorHeight} - 20px);
     overflow-y: auto;
     min-width: 1060px;
     padding: 10px;
@@ -65,8 +66,9 @@ $buttonWidth: 200px;
   }
 
   &__paginator {
-    height: $paginatorHeight;
-    line-height: $paginatorHeight;
+    border-top: $paginatorBorderWidth solid $paginator_border_color;
+    height: $paginatorClearHeigh;
+    line-height: $paginatorClearHeigh;
   }
 
   &__button-place {

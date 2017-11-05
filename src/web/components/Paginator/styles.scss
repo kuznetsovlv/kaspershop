@@ -1,11 +1,7 @@
 @import "../../styleconfig/index";
 
-$border_width: 1px;
-
 .paginator {
   @include closable;
-  border-top: $border_width solid $paginator_border_color;
-  margin-top: -$border_width;
   white-space: nowrap;
   x-overflow: auto;
 
