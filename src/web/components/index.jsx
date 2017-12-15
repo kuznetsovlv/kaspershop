@@ -5,6 +5,7 @@ import Price from './Price';
 import Paginator from './Paginator';
 import GoodData from './GoodData';
 import Availability from './Availability';
+import FileLoader from './FileLoader';
 
 export {
   Cathegories,
@@ -13,5 +14,6 @@ export {
   Price,
   Paginator,
   GoodData,
-  Availability
+  Availability,
+  FileLoader
 };

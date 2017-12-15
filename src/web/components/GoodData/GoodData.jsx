@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { combineBEMBlocks, has } from '../../utils';
+import { FileLoader } from '../../components';
 import { askGood } from '../../actions';
 import { blockName } from './constants';
 
@@ -28,6 +29,8 @@ export class GoodData extends Component {
     super(props);
 
     this.checGood = this.checkGood.bind(this);
+    this.validateSelectedFile = this.validateSelectedFile.bind(this);
+    this.handleImageSelected = this.handleImageSelected.bind(this);
   }
 
   componentWillMount () {
@@ -51,6 +54,24 @@ export class GoodData extends Component {
     } 
   }
 
+  validateSelectedFile (file) {
+    if (file) {
+      const { type, name, size } = file;
+
+      if (/^image\/.*$/.test(type)) {
+        return true;
+      }
+    }
+
+    this.handleImageSelected(undefined);
+
+    return false;
+  }
+
+  handleImageSelected (file) {
+    console.log(file);
+  }
+
   render () {
     const { blockName: userBlockName, className } = this.props;
     console.log(this.props);
@@ -61,7 +82,7 @@ export class GoodData extends Component {
     
     return (
       <div className={blockClassName}>
-        
+        <FileLoader name="test" validateFile={this.validateSelectedFile} onFileSelected={this.handleImageSelected} />
       </div>
     );
   }
