@@ -3,7 +3,7 @@ import Promise from 'promise';
 
 export default (url, file) => new Promise((resolve, reject) => {
   const { type } = file;
-  const xhr = new XMLHTTPRequest();
+  const xhr = new XMLHttpRequest();
 
   xhr.onload = function () {
     const { status } = this;
@@ -18,8 +18,7 @@ export default (url, file) => new Promise((resolve, reject) => {
     reject(this);
   };
 
-  xhr.setRequestHeader('Content-Type', type);
-
   xhr.open('POST', url, true);
+  xhr.setRequestHeader('Content-Type', type);
   xhr.send(file);
 });
