@@ -3,6 +3,7 @@ import sendFile from './sendFile';
 import sendData from './sendData';
 import getPostData from './getPostData';
 import uploadFile from './uploadFile';
+import getRequestData from './getRequestData';
 import { expandCathegories, compressCathegories } from './cathegoryUtils';
 
 export {
@@ -12,5 +13,6 @@ export {
   getPostData,
   uploadFile,
   expandCathegories,
-  compressCathegories
+  compressCathegories,
+  getRequestData
 };

@@ -1,19 +1,20 @@
-import { parse } from 'url';
 import { join } from 'path';
 import { getFileInfo } from 'fiojs';
-import { sendError, sendFile, sendData } from './utils';
+import {
+  sendError,
+  sendFile,
+  sendData,
+  getRequestData
+} from './utils';
 
 export default (request, response) => {
-  const server = request.server || {};
-  const { url } = request;
-  const { root = __dirname } = server;
-
-  const data = parse(url, true);
-  const query = data.query || {};
-  const { pathname } = data;
+  const {
+    query = {},
+    targetPath = ''
+  } = getRequestData(request);
 
   if (Object.keys(query).length === 0) {
-    getFileInfo(join(root, pathname))
+    getFileInfo(targetPath)
       .then((data) => {
         const { exists, fileType, path, name } = data;
 

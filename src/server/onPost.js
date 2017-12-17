@@ -2,7 +2,8 @@ import {
   getPostData,
   uploadFile,
   sendError,
-  sendData
+  sendData,
+  getRequestData
 } from './utils';
 import {
   data,
@@ -13,7 +14,8 @@ import {
 } from './services';
 
 export default (request, response) => {
-  switch (request.headers['content-type'].toLowerCase()) {
+  console.log(getRequestData(request).contentType);
+  switch (getRequestData(request).contentType) {
     case 'application/json':
       getPostData(request)
         .then((data) => {
@@ -47,6 +49,5 @@ export default (request, response) => {
         () => sendData(response, true, {}),
         error => sendError(response, 500, error.message || error)
       );
-
   }
 };
