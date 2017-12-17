@@ -7,6 +7,8 @@ import { FileLoader } from '../../components';
 import { askGood } from '../../actions';
 import { blockName } from './constants';
 
+import { uploadFile } from '../../sendRequest';
+
 import './styles.scss';
 
 export class GoodData extends Component {
@@ -70,6 +72,17 @@ export class GoodData extends Component {
 
   handleImageSelected (file) {
     console.log(file);
+    uploadFile('upload', file).then(
+      (data) => {
+        console.log(`File ${file.name} uploaded`);
+        console.log(data);
+      },
+      (error) => {
+        console.error(`Uploading file ${file.name} failed`);
+        console.log(error);
+      }
+    );
+
   }
 
   render () {

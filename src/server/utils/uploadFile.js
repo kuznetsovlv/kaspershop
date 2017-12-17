@@ -5,5 +5,15 @@ import { writeFile } from 'fiojs';
 
 export default request => new Promise ((resolve, reject) => {
   console.log(request);
-  request.on('end', () => resolve());
+  let length = 0;
+
+  request.on('data', (chunk) => {
+    length += chunk.length;
+    console.log(chunk);
+    console.log(`Loaded ${length} bytes.`);
+  });
+  request.on('end', () => {
+    console.log('SUCCESS');
+    resolve();
+  });
 });
