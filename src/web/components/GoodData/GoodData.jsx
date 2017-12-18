@@ -72,7 +72,11 @@ export class GoodData extends Component {
 
   handleImageSelected (file) {
     console.log(file);
-    uploadFile('upload', file).then(
+    const good = this.props.good;
+
+    const { id } = good;
+    const { name } = file;
+    uploadFile(`upload?id=${id}&name=${name}`, file).then(
       (data) => {
         console.log(`File ${file.name} uploaded`);
         console.log(data);

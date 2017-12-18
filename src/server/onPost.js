@@ -14,7 +14,6 @@ import {
 } from './services';
 
 export default (request, response) => {
-  console.log(getRequestData(request).contentType);
   switch (getRequestData(request).contentType) {
     case 'application/json':
       getPostData(request)

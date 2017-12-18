@@ -1,6 +1,5 @@
 import Promise from 'promise';
 
-
 export default (url, file) => new Promise((resolve, reject) => {
   const { type } = file;
   const xhr = new XMLHttpRequest();
