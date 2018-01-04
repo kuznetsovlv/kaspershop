@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bemclassnames from 'bemclassnames';
 import { GoodData } from '../../components';
+import { askGood } from '../../actions';
+import { has } from '../../utils';
 import { selectGood, clearGood } from './actions';
 import {
   blockName,
@@ -18,21 +20,37 @@ import './styles.scss';
 class Good extends Component {
   static propTypes = {
     good: PropTypes.object.isRequired,
+    editable: PropTypes.bool.isRequired,
     selectGood: PropTypes.func.isRequired,
     clearGood: PropTypes.func.isRequired
   }
 
   static defaultProps = {
-    good: {}
+    good: {},
+    editable: false
+  }
+
+  constructor (props) {
+    super(props);
+
+    this.checGood = this.checkGood.bind(this);
   }
 
   componentWillMount () {
     const { selectGood } = this.props;
+    const good = this.props.good || {};
 
     if (typeof selectGood === 'function') {
       const [id] = window.location.hash.split('/').filter(x => x).reverse();
       selectGood(id);
     }
+
+    this.checkGood(good);
+  }
+
+  componentWillReceiveProps (nextProps) {
+    const good = nextProps.good || {};
+    this.checkGood(good);
   }
 
   componentWillUnmount() {
@@ -43,7 +61,19 @@ class Good extends Component {
     }
   }
 
+  checkGood (good) {
+    const { askGood } = this.props;
+    const { id, complete } = good;
+
+    if (has(good, 'id')) {
+      if (!complete && typeof askGood === 'function') {
+        askGood(id);
+      }
+    } 
+  }
+
   render () {
+    const { editable } = this.props;
     const good = this.props.good || {};
 
     const blockClassName = bemclassnames(blockName);
@@ -59,7 +89,7 @@ class Good extends Component {
           </div>
 
           <div className={dataPlaceClassName}>
-            <GoodData good={good} blockName={dataBlockName} className={goodClassName} />
+            {!editable && <GoodData good={good} blockName={dataBlockName} className={goodClassName} />}
           </div>
         </div>
       </div>
@@ -68,10 +98,11 @@ class Good extends Component {
 }
 
 const mapStateToProps = ({ data = {}, good = {} }) => {
-  const { id } = good;
+  const { editable = false, ...restGood } = good;
+  const { id } = restGood;
 
   if (!id) {
-    return {};
+    return { editable };
   }
 
   const goodList = data.goodList || {};
@@ -79,12 +110,14 @@ const mapStateToProps = ({ data = {}, good = {} }) => {
   const defaults = data.defaults || {};
   
   return {
-    good: { ...defaults, ...goodData, ...good }
+    editable,
+    good: { ...defaults, ...goodData, ...restGood }
   };
 };
 const mapDispatchToProps = dispatch => ({
   selectGood: id => dispatch(selectGood(id)),
-  clearGood: () => dispatch(clearGood())
+  clearGood: () => dispatch(clearGood()),
+  askGood: id => dispatch(askGood(id))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Good);
