@@ -1,8 +1,8 @@
 @import "../../styleconfig/index";
 
-$switcherHeight: 40px;
 $borderRadius: 5px;
 $placesMarging: 2px;
+$switcherPalcePadding: 7px;
 
 .good-form {
   @include expanded;
@@ -25,10 +25,25 @@ $placesMarging: 2px;
     border-radius: $borderRadius;
     background: $good_item_background_color;
     margin-bottom: $placesMarging;
+    padding: $switcherPalcePadding;
+  }
+
+  &__switcher-title {
+    @include menu-text;
+    height: $switcherHeight;
+    vertical-align: middle;
+    line-height: $switcherHeight;
+    display: inline-block;
+    float: right;
+    margin-right: 5px;
+  }
+
+  &__switcher {
+    float: right;
   }
 
   &__data-place {
-    height: calc(100% - #{$switcherHeight} - #{$placesMarging});
+    height: calc(100% - #{$switcherHeight} - #{$placesMarging} - #{2 * $switcherPalcePadding});
     border-radius: $borderRadius;
     overflow-y: auto;
     background: $good_item_background_color;

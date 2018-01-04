@@ -13,41 +13,51 @@ $enormous_size: 32px;
 }
 
 @mixin header-title {
+  @include usage-font;
   font-size: $huge_size;
 }
 
 @mixin header-text {
+  @include usage-font;
   font-size: $large_size;
 }
 
 @mixin title {
+  @include usage-font;
   font-size: $huge_size;
 }
 
 @mixin enormous-text {
+  @include usage-font;
   font-size: $enormous_size;
 }
 
 @mixin huge-text {
+  @include usage-font;
   font-size: $huge_size;
 }
 
 @mixin large-text {
+  @include usage-font;
   font-size: $large_size;
 }
 
 @mixin menu-text {
+  @include usage-font;
   font-size: $normal_size;
 }
 
 @mixin base-text {
+  @include usage-font;
   font-size: $base_size;
 }
 
 @mixin small-text {
+  @include usage-font;
   font-size: $small_size;
 }
 
 @mixin tiny-text {
+  @include usage-font;
   font-size: $tiny_size;
 }

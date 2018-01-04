@@ -30,12 +30,10 @@ export class GoodData extends Component {
     const blocks = userBlockName ? [blockName, userBlockName] : [blockName];
 
     const blockClassName = classnames(combineBEMBlocks(blocks), { [className]: className });
-
-    console.log(this.props);
     
     return (
       <div className={blockClassName}>
-        
+        Data
       </div>
     );
   }

@@ -2,15 +2,17 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bemclassnames from 'bemclassnames';
-import { GoodData } from '../../components';
+import { GoodData, Switcher } from '../../components';
 import { askGood } from '../../actions';
 import { has } from '../../utils';
-import { selectGood, clearGood } from './actions';
+import { selectGood, clearGood, setEditable } from './actions';
 import {
   blockName,
   dataBlockName,
   wrapperElement,
   switcherPlaceElement,
+  switcherTitleElement,
+  switcherElement,
   dataPlaceElement,
   goodElement
 } from './constants';
@@ -22,7 +24,8 @@ class Good extends Component {
     good: PropTypes.object.isRequired,
     editable: PropTypes.bool.isRequired,
     selectGood: PropTypes.func.isRequired,
-    clearGood: PropTypes.func.isRequired
+    clearGood: PropTypes.func.isRequired,
+    setEditable: PropTypes.func.isRequired
   }
 
   static defaultProps = {
@@ -34,6 +37,7 @@ class Good extends Component {
     super(props);
 
     this.checGood = this.checkGood.bind(this);
+    this.changeEditableHandler = this.changeEditableHandler.bind(this);
   }
 
   componentWillMount () {
@@ -72,6 +76,14 @@ class Good extends Component {
     } 
   }
 
+  changeEditableHandler (editable) {
+    const { setEditable } = this.props;
+
+    if (typeof setEditable === 'function') {
+      setEditable(editable);
+    }
+  }
+
   render () {
     const { editable } = this.props;
     const good = this.props.good || {};
@@ -79,6 +91,8 @@ class Good extends Component {
     const blockClassName = bemclassnames(blockName);
     const wrapperClassName = bemclassnames(blockName, wrapperElement);
     const switcherPlaceClassName = bemclassnames(blockName, switcherPlaceElement);
+    const switcherTitleClassName = bemclassnames(blockName, switcherTitleElement);
+    const switcherClassName = bemclassnames(blockName, switcherElement);
     const dataPlaceClassName = bemclassnames(blockName, dataPlaceElement);
     const goodClassName = bemclassnames(blockName, goodElement);
 
@@ -86,6 +100,8 @@ class Good extends Component {
       <div className={blockClassName}>
         <div className={wrapperClassName}>
           <div className={switcherPlaceClassName}>
+            <Switcher name="edit" onChange={this.changeEditableHandler} className={switcherClassName} />
+            <div className={switcherTitleClassName}>Редактирование:</div>
           </div>
 
           <div className={dataPlaceClassName}>
@@ -117,7 +133,8 @@ const mapStateToProps = ({ data = {}, good = {} }) => {
 const mapDispatchToProps = dispatch => ({
   selectGood: id => dispatch(selectGood(id)),
   clearGood: () => dispatch(clearGood()),
-  askGood: id => dispatch(askGood(id))
+  askGood: id => dispatch(askGood(id)),
+  setEditable: editable => dispatch(setEditable(editable))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Good);

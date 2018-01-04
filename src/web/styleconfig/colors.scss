@@ -11,6 +11,10 @@ $paginator_border_color: darken($mixed_background_color, 20%);
 $paginator_default_page_background_color: lighten($good_list_bacground_color, 15%);
 $paginator_selected_page_background_color: darken($good_list_bacground_color, 15%);
 
+$switcher_border_color: darken($base_background_color, 7%);
+$switcher_background_color: lighten($base_background_color, 10%);
+$switcher_handler_color: darken($base_background_color, 10%);
+
 $base_font_color: #000;
 $additional_font_color: #401d00;
 $special_font_color: #fff;

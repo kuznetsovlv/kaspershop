@@ -6,6 +6,7 @@ import Paginator from './Paginator';
 import GoodData from './GoodData';
 import Availability from './Availability';
 import FileLoader from './FileLoader';
+import Switcher from './Switcher';
 
 export {
   Cathegories,
@@ -15,5 +16,6 @@ export {
   Paginator,
   GoodData,
   Availability,
-  FileLoader
+  FileLoader,
+  Switcher
 };

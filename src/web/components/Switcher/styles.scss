@@ -1,0 +1,62 @@
+@import "../../styleconfig/index";
+
+$size: $switcherHeight - 2px;
+$switcher_border_coloradius: $size / 2;
+
+$switcher_on_base_color: #1e841e;
+$switcher_off_base_color: #a52626;
+
+$switcher_border_color: darken($switcher_off_base_color, 7%);
+$switcher_background_color: lighten($switcher_off_base_color, 10%);
+$switcher_handler_color: darken($switcher_off_base_color, 10%);
+
+$switcher_on_border_color: darken($switcher_on_base_color, 7%);
+$switcher_on_background_color: lighten($switcher_on_base_color, 10%);
+$switcher_on_handler_color: darken($switcher_on_base_color, 10%);
+
+@mixin handler {
+  content: '';
+  display: block;
+  width: $size;
+  height: $size;
+  border-radius: $switcher_border_coloradius;
+  position: absolute;
+}
+
+.switcher {
+  display: inline-block;
+  vertical-align: middle;
+  width: 2 * $size;
+  height: $size;
+
+  input {
+    display: none;
+
+    &+label {
+      position: relative;
+      display: block;
+      width: 100%;
+      height: 100%;
+      border: 1px solid $switcher_border_color;
+      border-radius: $switcher_border_coloradius;
+      background: $switcher_background_color;
+
+      &:after {
+        @include handler;
+        background: $switcher_handler_color;
+        left: 0;
+      }
+    }
+
+    &:checked+label {
+      border-color: $switcher_on_border_color;
+      background: $switcher_on_background_color;
+
+      &:after {
+        background: $switcher_on_handler_color;
+        left: $size;
+      }
+
+    }
+  }
+}
