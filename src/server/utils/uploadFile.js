@@ -25,8 +25,6 @@ export default request => new Promise ((resolve, reject) => {
         console.log(`Loaded ${length} bytes.`);
       });
       request.on('end', () => {
-        // console.log('SUCCESS');
-        // resolve('Ok');
         const dataBuffer = Buffer.concat(chunkList);
         writeFile(join(root, IMAGE_FOLDER, `${id}${ext}`), dataBuffer).then(
           () => resolve('OK'),
