@@ -1,7 +1,7 @@
 // Karma configuration
 // Generated on Wed May 03 2017 00:11:19 GMT+0300 (MSK)
 var webpack = require('webpack');
-var webpackConfig = require('./webpack.config');
+var webpackConfig = require('./web.config');
 var path = require('path');
 
 module.exports = function(config) {
@@ -16,8 +16,8 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      '__tests__/**/*.js',
-      '__tests__/**/*.jsx'
+      './src/web/**/*-test.js',
+      './src/web/**/*-test.jsx'
     ],
 
     // list of files to exclude
@@ -26,8 +26,8 @@ module.exports = function(config) {
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-        '__tests__/**/*.js': ['webpack'],
-        '__tests__/**/*.jsx': ['webpack']
+        './src/web/**/*-test.js': ['webpack'],
+        './src/web/**/*-test.jsx': ['webpack']
     },
 
     webpack: {
