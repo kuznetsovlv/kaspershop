@@ -62,7 +62,7 @@ export default (state = initialState, { type, payload }) => {
     }
     case SET_GOOD: {
       const { id } = payload;
-      let goods = state.goods || [];
+      const goods = state.goods || [];
       const goodList = state.goodList || {};
       const newGoodList = { ...goodList, [id]: payload };
 

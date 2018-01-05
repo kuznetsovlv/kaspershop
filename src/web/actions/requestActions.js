@@ -75,7 +75,7 @@ export const askGood = id => (dispatch) => {
     command: 'getGood',
     params: { id }
   }).then(
-    (data) => dispatch(((good) => ({ type: SET_GOOD, payload: { ...good, id } }))(data)),
+    data => dispatch((good => ({ type: SET_GOOD, payload: { ...good, id } }))(data)),
   )
-  .catch(error => dispatch(setError({})));
+  .then(null, error => dispatch(setError({})));
 };

@@ -12,7 +12,7 @@ const removeValue = (state, id) => {
   delete newState[id];
 
   return newState;
-}
+};
 
 const changeValue = (state, id, delta) => {
   const value = (state[id] || 0) + delta;
@@ -21,8 +21,8 @@ const changeValue = (state, id, delta) => {
     return { ...state, [id]: value };
   }
 
-  return removeState(state, id);
-}
+  return removeValue(state, id);
+};
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {

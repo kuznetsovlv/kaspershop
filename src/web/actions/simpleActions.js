@@ -14,17 +14,17 @@ export const switchCathegoryTo = (id, selected) => ({
   payload: { id, selected }
 });
 
-export const addGoodIntoBag = (id) => ({
+export const addGoodIntoBag = id => ({
   type: ADD_GOOD_INTO_BAG,
   payload: id
 });
 
-export const removeGoodFromBag = (id) => ({
+export const removeGoodFromBag = id => ({
   type: REMOVE_GOOD_FROM_BAG,
   payload: id
 });
 
-export const decreaseGoodInBag = (id) => ({
+export const decreaseGoodInBag = id => ({
   type: DECREASE_GOOD_IN_BAG,
   payload: id
 });

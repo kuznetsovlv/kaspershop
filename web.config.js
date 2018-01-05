@@ -62,6 +62,11 @@ const config = {
         loader: 'babel'
       },
       {
+        exclude: /node_modules/,
+        test: /\.js$/,
+        loader: 'eslint-loader'
+      },
+      {
           test: /\.scss$/,
           loaders: ['style', 'css', 'sass']
       }

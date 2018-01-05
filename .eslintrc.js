@@ -5,7 +5,12 @@ module.exports = {
     "browser": true
   },
   "parser": "babel-eslint",
-  "extends": ["airbnb", "eslint:recommended", "plugin:jasmine/recommended"],
+  "extends": [
+    "airbnb",
+    "eslint:recommended",
+    "plugin:jasmine/recommended",
+    "plugin:promise/recommended"
+  ],
   "parserOptions": {
     "ecmaVersion": 6,
     "sourceType": "module",
@@ -16,7 +21,8 @@ module.exports = {
   },
   "plugins": [
     "react",
-    "jsx-a11y"
+    "jsx-a11y",
+    "promise"
   ],
   "rules": {
     "prefer-const": [
@@ -212,6 +218,7 @@ module.exports = {
     "jasmine/valid-expect": "off",
     "jasmine/no-unsafe-spy": "off",
     "jasmine/no-global-setup": "off",
-    "jasmine/no-expect-in-setup-teardown": "off"
+    "jasmine/no-expect-in-setup-teardown": "off",
+    "promise/always-return": "warn",
   }
 };
