@@ -12,9 +12,9 @@
     "build-web": "babel-node ./scripts/buildWeb.js",
     "build-web-product": "npm run build-web product",
     "run-web": "npm-run-all --parallel server",
-    "start": "npm run data && npm-run-all --parallel build-server build-web",
+    "start": "npm run data && npm-run-all --parallel build-server build-web test",
     "build": "npm run data && npm run build-server-product && npm run build-web-product",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "babel-node ./node_modules/karma/bin/karma start karma.conf.js"
   },
   "author": "Kuznetsov Leonid (kuznetsovlv1981@gmail.com)",
   "license": "MIT",
@@ -37,6 +37,7 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jasmine": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^6.10.3",
     "jasmine": "^2.6.0",
     "jasmine-core": "^2.6.1",
