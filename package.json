@@ -49,6 +49,7 @@
     "karma-webpack": "^2.0.3",
     "node-sass": "^4.5.2",
     "npm-run-all": "^4.1.1",
+    "redux-devtools-extension": "^2.13.2",
     "resolve-url-loader": "^2.1.1",
     "sass-loader": "^6.0.6",
     "sourcemap-istanbul-instrumenter-loader": "^0.2.0",
