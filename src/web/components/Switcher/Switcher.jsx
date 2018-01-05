@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
-import { blockName } from './constants';
+import bemclassnames from 'bemclassnames';
+import { blockName, labelElement, animatedMod } from './constants';
 
 import './styles.scss';
 
@@ -23,11 +24,18 @@ export default class Switcher extends Component {
   constructor (props) {
     super(props);
 
+    this.state = { animated: false };
+
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange () {
     const { onChange } = this.props;
+    const { animated } = this.state;
+
+    if (!animated) {
+      this.setState({ animated: true });
+    }
 
     if (typeof onChange === 'function') {
       onChange(this._checkbox.checked);
@@ -35,8 +43,8 @@ export default class Switcher extends Component {
   }
 
   render () {
-
     const { name, className, disabled, checked } = this.props;
+    const { animated } = this.state;
 
 
     return (
@@ -50,7 +58,7 @@ export default class Switcher extends Component {
           ref={checkbox => this._checkbox = checkbox}
           onChange={this.handleChange}
         />
-        <label htmlFor={name} />
+        <label htmlFor={name} className={bemclassnames(blockName, labelElement, { [animatedMod]: animated })} />
       </div>
     );
   }
