@@ -32,7 +32,7 @@ $navigatorWidth: 270px;
     }
 
     &_goods {
-      width: calc(100% - $navigatorWidth);
+      width: calc(100% - #{$navigatorWidth});
     }
   }
 
