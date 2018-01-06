@@ -30,6 +30,10 @@ describe('Tests for getCathegoriesAsString util', () => {
     expect(getCathegoriesAsString()).toBe('');
   });
 
+  it('Should return empty string', () => {
+    expect(getCathegoriesAsString(0, indexes, hash)).toBe('');
+  });
+
   it('Should return "Продукты питания"', () => {
     expect(getCathegoriesAsString(1, indexes, hash)).toBe('Продукты питания');
   });
