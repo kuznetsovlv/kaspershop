@@ -2,8 +2,8 @@ import { has, min } from '../utils';
 
 /**
  * Create new ordered array consists of unique only elements from two othe odered arrays.
- * @param {Array} [arr1] - array of numbers
- * @param {Array} [arr2] - array of numbers
+ * @param {Array} [arr1 =[]] - array of numbers
+ * @param {Array} [arr2 = []] - array of numbers
  * @return {Array} - resulting array
  */
 export default (arr1 = [], arr2 = []) => {
