@@ -1,6 +1,6 @@
 import has from './has';
 
-describe('Testing has utils', () => {
+describe('Tests for has utils', () => {
 
   const testObj = {
       propOne: '',
