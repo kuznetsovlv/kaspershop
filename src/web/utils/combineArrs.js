@@ -1,5 +1,11 @@
-import { has } from '../utils';
+import { has, min } from '../utils';
 
+/**
+ * Create new ordered array consists of unique only elements from two othe odered arrays.
+ * @param {Array} [arr1] - array of numbers
+ * @param {Array} [arr2] - array of numbers
+ * @return {Array} - resulting array
+ */
 export default (arr1 = [], arr2 = []) => {
   const hash = {};
   const res = [];
@@ -14,7 +20,7 @@ export default (arr1 = [], arr2 = []) => {
     const el2 = arr2[i2];
     let el;
 
-    if (el1 < el2) {
+    if (el1 === min(el1, el2)) {
       el = el1;
       ++i1;
     } else {

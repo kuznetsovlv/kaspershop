@@ -5,6 +5,7 @@ import showGood from './showGood';
 import getCathegoriesAsString from './getCathegoriesAsString';
 import formatPrice from './formatPrice';
 import combineBEMBlocks from './combineBEMBlocks';
+import min from './min';
 
 export {
   has,
@@ -13,5 +14,6 @@ export {
   showGood,
   getCathegoriesAsString,
   formatPrice,
-  combineBEMBlocks
+  combineBEMBlocks,
+  min
 };
