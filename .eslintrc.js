@@ -220,5 +220,6 @@ module.exports = {
     "jasmine/no-global-setup": "off",
     "jasmine/no-expect-in-setup-teardown": "off",
     "promise/always-return": "warn",
+    "promise/catch-or-return": "warn"
   }
 };
