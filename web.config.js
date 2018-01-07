@@ -67,8 +67,8 @@ const config = {
         loader: 'eslint-loader'
       },
       {
-          test: /\.scss$/,
-          loaders: ['style', 'css', 'sass']
+        test: /\.scss$/,
+        loaders: ['style', 'css', 'sass']
       }
     ]
   }
