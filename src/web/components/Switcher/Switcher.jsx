@@ -6,6 +6,9 @@ import { blockName, labelElement, animatedMod } from './constants';
 
 import './styles.scss';
 
+/**
+ * Class to create switcher components
+ */
 export default class Switcher extends Component {
   static propTypes = {
     className: PropTypes.string,
@@ -21,6 +24,14 @@ export default class Switcher extends Component {
     checked: false
   }
 
+  /**
+   * @param {Object} props - component's props:
+   * @param {string} [props#className] - className of root element;
+   * @param {string} name - unique component's name, used for input's name and id;
+   * @param {boolean} [disabled] - disabled flag;
+   * @param {boolean} [checked] - initial checked flag;
+   * @param {function} onChange - checked change-handler.
+   */
   constructor (props) {
     super(props);
 
@@ -29,6 +40,9 @@ export default class Switcher extends Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
+  /**
+   * input change handler
+   */
   handleChange () {
     const { onChange, disabled } = this.props;
     const { animated } = this.state;
@@ -66,4 +80,4 @@ export default class Switcher extends Component {
       </div>
     );
   }
-}
+};
