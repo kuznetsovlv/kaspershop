@@ -60,6 +60,9 @@ export default class Paginator extends Component {
       return null;
     }
 
+    const disabledLeft = pageNumber <= 0;
+    const disabledRight = pageNumber >= pageAmount - 1;
+
     const pageDisplayFlags = [];
     const maxLeft = closePageAmount;
     const minRight = pageAmount - closePageAmount - 1;
@@ -71,14 +74,21 @@ export default class Paginator extends Component {
     }
 
     const blockClassName = classnames(bemclassnames(blockName), className);
-    const leftSwitcherClassName = bemclassnames(blockName, pageElement, leftSwitcherMod);
-    const rightSwitcherClassName = bemclassnames(blockName, pageElement, rightSwitcherMod);
+    const leftSwitcherClassName = bemclassnames(blockName, pageElement, leftSwitcherMod, { disabled: disabledLeft });
+    const rightSwitcherClassName = bemclassnames(blockName, pageElement, rightSwitcherMod, { disabled: disabledRight });
 
     let pointsDisplaied;
 
     return (
       <div className={blockClassName}>
-        <Page id={arrowLeftId} className={leftSwitcherClassName} onClick={this.handlePageChange}>{arrowLeftId}</Page>
+        <Page
+          id={arrowLeftId}
+          className={leftSwitcherClassName}
+          disabled={disabledLeft}
+          onClick={this.handlePageChange}
+        >
+          {arrowLeftId}
+        </Page>
         {pageDisplayFlags.map((flag, id) => {
           if (flag) {
             pointsDisplaied = false;
@@ -92,7 +102,14 @@ export default class Paginator extends Component {
           const className = bemclassnames(blockName, pageElement, pointsMod);
           return <Page key={id} id={id} className={className}>...</Page>;
         })}
-        <Page id={arrowRightId} className={rightSwitcherClassName} onClick={this.handlePageChange}>{arrowRightId}</Page>
+        <Page
+          id={arrowRightId}
+          className={rightSwitcherClassName}
+          disabled={disabledRight}
+          onClick={this.handlePageChange}
+        >
+          {arrowRightId}
+        </Page>
       </div>
     );
   }

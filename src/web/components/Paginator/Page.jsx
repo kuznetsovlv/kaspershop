@@ -6,6 +6,7 @@ export default class extends Component {
     id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     children: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
     className: PropTypes.string,
+    disabled: PropTypes.bool,
     onClick: PropTypes.func.isRequired
   }
 
@@ -15,9 +16,9 @@ export default class extends Component {
   }
 
   handleClick () {
-    const { id, onClick } = this.props;
+    const { id, onClick, disabled } = this.props;
 
-    if (typeof onClick === 'function') {
+    if (!disabled && typeof onClick === 'function') {
       onClick(id);
     }
   }
