@@ -30,8 +30,12 @@ export default class Switcher extends Component {
   }
 
   handleChange () {
-    const { onChange } = this.props;
+    const { onChange, disabled } = this.props;
     const { animated } = this.state;
+
+    if (disabled) {
+      return;
+    }
 
     if (!animated) {
       this.setState({ animated: true });

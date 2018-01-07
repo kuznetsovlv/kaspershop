@@ -14,6 +14,10 @@ $switcher_on_border_color: darken($switcher_on_base_color, 7%);
 $switcher_on_background_color: lighten($switcher_on_base_color, 10%);
 $switcher_on_handler_color: darken($switcher_on_base_color, 10%);
 
+$switcher_disabled_border_color: #6b6b6b;
+$switcher_disabled_background_color: #bbb;
+$switcher_disabled_handler_color: #4c4c4c;
+
 $switch_duration: 0.3s;
 
 @mixin handler {
@@ -43,6 +47,7 @@ $switch_duration: 0.3s;
     border: 1px solid $switcher_border_color;
     border-radius: $switcher_border_coloradius;
     background: $switcher_background_color;
+    cursor: pointer;
 
     &_animated {
       -webkit-animation-name: recolor-to-off;
@@ -87,7 +92,16 @@ $switch_duration: 0.3s;
       background: $switcher_on_handler_color;
       left: $size;
     }
+  }
 
+  input:disabled+&__label {
+    cursor: auto;
+    border-color: $switcher_disabled_border_color;
+    background: $switcher_disabled_background_color;
+
+    &:after {
+      background: $switcher_disabled_handler_color;
+    }
   }
 }
 
