@@ -95,7 +95,7 @@ $switch_duration: 0.3s;
   }
 
   input:disabled+&__label {
-    cursor: auto;
+    cursor: default;
     border-color: $switcher_disabled_border_color;
     background: $switcher_disabled_background_color;
 
