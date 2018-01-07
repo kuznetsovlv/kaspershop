@@ -1,8 +1,8 @@
 // Karma configuration
 // Generated on Wed May 03 2017 00:11:19 GMT+0300 (MSK)
-var webpack = require('webpack');
-var webpackConfig = require('./web.config');
-var path = require('path');
+import webpack from 'webpack';
+import { resolve } from 'path';
+import webpackConfig from './web.config';
 
 module.exports = function(config) {
 
@@ -35,16 +35,20 @@ module.exports = function(config) {
       module: {
         loaders: [{
           exclude: /node_modules/,
-          test: /\.jsx?$/,
+          test: /\.(jsx?)$/,
           loader: 'babel'
+        },
+        {
+          test: /\.scss$/,
+          loaders: ['style', 'css', 'sass']
         }],   
         postLoaders: [{
           test: /\.(jsx?)$/,
-          include: path.resolve(__dirname, 'src'),
+          include: resolve(__dirname, 'src'),
           loader: 'sourcemap-istanbul-instrumenter-loader?force-sourcemap=true'
         }]
       },
-      resolve: webpackConfig.resolve,
+      resolve: webpackConfig.resolve
     },
 
     webpackServer: {
