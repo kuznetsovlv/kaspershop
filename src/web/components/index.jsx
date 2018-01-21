@@ -7,6 +7,7 @@ import GoodData from './GoodData';
 import Availability from './Availability';
 import FileLoader from './FileLoader';
 import Switcher from './Switcher';
+import GoodCathegories from './GoodCathegories';
 
 export {
   Cathegories,
@@ -17,5 +18,6 @@ export {
   GoodData,
   Availability,
   FileLoader,
-  Switcher
+  Switcher,
+  GoodCathegories
 };
