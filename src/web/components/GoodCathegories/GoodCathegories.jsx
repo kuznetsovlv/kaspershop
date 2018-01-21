@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { getCathegoriesAsString } from '../../utils';
+import getCathegoriesAsString from './getCathegoriesAsString';
 
 export const GoodCathegories = ({
   children = 0,

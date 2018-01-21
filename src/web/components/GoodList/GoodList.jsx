@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import bemclassnames from 'bemclassnames';
 import { addGoodIntoBag } from '../../actions';
-import { getCathegoriesAsString, has } from '../../utils';
+import { has } from '../../utils';
 import { Paginator } from '../../components';
 import {
   blockName,

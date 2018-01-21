@@ -1,4 +1,4 @@
-import { has } from '../utils';
+import { has } from '../../utils';
 
 /**
  * Converts cathegory number to string with human readable list of cathegories
