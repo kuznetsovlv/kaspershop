@@ -1,5 +1,63 @@
 @import "../../styleconfig/index";
 
+$good-data_padding: 5px;
+$good-data_header_height: 110px;
+
 .good-data {
-  min-height: 100% !important;
+  height: calc(100% - #{2 * $good-data_padding});
+  padding: $good-data_padding;
+
+  &__header {
+    @include title;
+    color: $base_font_color;
+    height: $good-data_header_height;
+    display: table;
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  &__photo,
+  &__good-name,
+  &__bag-zone {
+    display: table-cell;
+    vertical-align: top;
+  }
+
+  &__good-name {
+    width: 100%;
+    padding-left: 50px;
+  }
+
+  &__good-name-item {
+    &:not(:first-child) {
+      margin-top: 20px;
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  &__bag-zone {
+    padding: 5px;
+  }
+
+  &__to-bag-btn {
+    @include base-text;
+    color: $additional_font_color;
+  }
+
+  &__in-the-bag {
+    @include small-text;
+    text-align: right;
+    color: $special_font_color;
+    margin-top: 10px;
+  }
+
+  &__data {
+    height: calc(100% - #{$good-data_header_height});
+    overflow-y: auto;
+
+    outline: 1px soid green;
+  }
 }
