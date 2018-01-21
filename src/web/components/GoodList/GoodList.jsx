@@ -104,10 +104,10 @@ const mapStateToProps = ({ data, goodList}) => {
   const goods = selectedIndexes
     .slice(from, to)
     .map(index => {
-      const good = hash[index]
-      const cathegoryList = getCathegoriesAsString(good.cathegories, cathegoryIndexes, cathegoryHash);
+      const good = hash[index];
+      const { cathegories } = good;
 
-      return { ...defaults, ...good, cathegoryList };
+      return { ...defaults, ...good, cathegories };
     });
 
   return {

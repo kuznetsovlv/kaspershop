@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import bemclassnames from 'bemclassnames';
-import { Photo, Price, Availability } from '../../components';
+import { Photo, Price, Availability, GoodCathegories } from '../../components';
 import {
   blockName,
   itemElement,
@@ -25,7 +25,7 @@ export default class Item extends Component {
     id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
     name: PropTypes.string.isRequired,
     photo: PropTypes.string.isRequired,
-    cathegoryList: PropTypes.string.isRequired,
+    cathegories: PropTypes.number.isRequired,
     price: PropTypes.number.isRequired,
     amount: PropTypes.number.isRequired,
     onAddToBag: PropTypes.func.isRequired
@@ -46,7 +46,7 @@ export default class Item extends Component {
   }
 
   render () {
-    const { id, name, photo, cathegoryList, price, amount } = this.props;
+    const { id, name, photo, cathegories, price, amount } = this.props;
     const to = `good/${id}`;
 
     const itemClassName = bemclassnames(blockName, itemElement);
@@ -66,7 +66,7 @@ export default class Item extends Component {
           <Photo src={photo} className={photoClassName} alt={name} />
           <div className={infoClassName}>
             <div className={nameClassName}>{name}</div>
-            <div className={cathegoryClassName}>{cathegoryList}</div>
+            <GoodCathegories className={cathegoryClassName}>{cathegories}</GoodCathegories>
             <div className={idClassName}>Артикул: {id}</div>
             <Availability amount={amount} />
           </div>
