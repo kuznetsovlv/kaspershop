@@ -16,7 +16,7 @@ $buttonWidth: 200px;
     @include closable;
     height: calc(100% - #{$paginatorHeight} - 20px);
     overflow-y: auto;
-    min-width: 1060px;
+    min-width: 971px;
     padding: 10px;
   }
 
@@ -50,19 +50,26 @@ $buttonWidth: 200px;
 
   &__info {
     padding-left: 40px;
-    max-width: 530px;
+    width: 300px;
+    // max-width: 150px;
   }
 
   &__name {
     @include header-text;
     color: $base_font_color;
     font-weight: bold;
+    // white-space: nowrap;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
   }
 
   &__cathegory {
     @include tiny-text;
     color: $additional_font_color;
     font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   &__paginator {
